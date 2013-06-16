@@ -1,0 +1,104 @@
+{include file=pageheader.htm}
+
+<form enctype="multipart/form-data" action="admin_actphoto.php?act=list" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  
+    <td width="10%" align="left"><strong>圈子名称</strong></td>
+    <td width="15%" align="left"><input name="query[groupname]" type="text" id="actname"  class="txt200"  value="{$query.groupname}"/></td>
+    
+      <td width="10%" align="left"><strong>标签</strong></td>
+    <td width="15%" align="left"><input name="query[lables]" type="text" id="keywords"  class="txt200"  value="{$query.lables}"/></td>
+    
+    <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td>&nbsp;</td>
+
+  </tr>
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+   <tr>
+    <th>圈子名称</th>
+    <th>圈子类型</th>
+    <th>圈子等级</th>
+    <th>标签</th>
+    <th>话题数</th>
+    <th>成员数</th>
+    <th>照片数</th>
+   	<th>创建人(昵称)</th>
+   
+   	
+    <th>操作</th>
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" colspan="9">系统还没有圈子</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+    <td  align="center"><a href="admin_group.php?act=show&id={$item.ID}">{$item.groupname}</a></td>
+    <td  align="center">{$item.grptypename}</td>
+    <td  align="center">{$item.level}</td>
+     <td  align="center">
+
+   {foreach from=$item.labels item=item1 key=key1}
+   {$item1.label} &nbsp;
+   {/foreach}
+
+    </td>
+    
+     <td  align="center">{$item.topicnum}</td>
+    <td  align="center">{$item.membernum}</td>
+     <td  align="center">{$item.photonum}</td>
+    <td  align="center">{$item.nickname}</td>
+    
+    
+
+    
+    <td  align="center">
+   <a href="admin_groupphoto.php?act=shield&id={$item.ID}" title="屏蔽"><img src="./templates/images/backstage/u14.gif" border="0" height="16" width="16" /></a>
+        
+     
+    </td>
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"  colspan="9">      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+
+
+{include file=pagefooter.htm}
+
+

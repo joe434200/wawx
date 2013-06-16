@@ -1,0 +1,119 @@
+{include file=pageheader.htm}
+
+<form enctype="multipart/form-data" action="admin_ads.php?act=list" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+   <td width="10%" align="left"><strong>广告位置</strong></td>
+    <td width="15%" align="left"><select name="query[position]" id="position"  >
+                <option value="" >请选择</option>
+                {foreach from=$adspos item=item key=index}
+                <option value="{$index}" {if $query.position eq $index}selected{/if}>{$item.text}</option>
+                {/foreach}
+      </select></td>
+    
+   
+    <td width="10%" align="left"><strong>图片名称</strong></td>
+    <td width="15%" align="left"><input name="query[oldname]" type="text" id="oldname"  class="txt200"  value="{$query.oldname}"/></td>
+    
+   
+      <td width="10%" align="left"><strong>广告描述</strong></td>
+    <td width="15%" align="left"><input name="query[advertdesc]" type="text" id="advertdesc"  class="txt200"  value="{$query.advertdesc}"/></td>
+    </tr>
+     <tr>
+      <td width="10%" align="left"><strong>广告开始时间</strong></td>
+    <td width="15%" align="left">
+    <input name="query[starttime_begin]" type="text" id="starttime_begin"  class="Wdate"  onClick="WdatePicker();"  value="{$query.starttime_begin}"/>至<input name="query[starttime_end]" type="text" id="starttime_end"  class="Wdate"  onClick="WdatePicker();" value="{$query.starttime_end}"/>
+    </td>
+    
+      <td width="10%" align="left"><strong>广告结束时间</strong></td>
+    <td width="15%" align="left"><input name="query[endtime_begin]" type="text" id="endtime_begin"  class="Wdate"  onClick="WdatePicker();" value="{$query.endtime_begin}"/>至<input name="query[endtime_end]" type="text" id="endtime_end"  class="Wdate"  onClick="WdatePicker();" value="{$query.endtime_end}"/>
+    </td>
+     
+    
+    <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td>&nbsp;</td>
+
+  </tr>
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>序号</th>
+    <th>图片名称</th>
+    <th>图片URL</th>
+    <th>开始时间</th>
+    
+    <th>结束时间</th>
+    <th>有效时间(天)</th>
+    
+    <th>位置</th>
+    <th>显示</th>
+ 
+    <th>操作</th>
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" colspan="9">系统还没有添加广告！</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+    <td  align="center">{$key+1}</a></td>
+    <td  align="center">{$item.oldname}</td>
+    <td  align="center">{$item.linkid}</td>
+    <td  align="center">{$item.starttime|date_format:"%Y/%m/%d"}</td>
+    <td  align="center">{$item.endtime|date_format:"%Y/%m/%d"}</td>
+     <td  align="center">{$item.validtime}</td>
+     <td  align="center">{$adspos[$item.position].text}</td>
+    <td  align="center">{if $item.isshow eq '1'} <img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  /> {/if}</td>
+   
+    <td  align="center">
+    <a href="admin_ads.php?act=show&id={$item.ID}">查看</a>
+    |
+     <a href="admin_ads.php?act=edit&id={$item.ID}">编辑</a>
+     {if $item.isshow eq '1'}
+    |  <a href="admin_ads.php?act=del&id={$item.ID}">删除</a>
+      {/if}
+     
+    </td>
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"  colspan="9">      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+
+
+{include file=pagefooter.htm}
+
+

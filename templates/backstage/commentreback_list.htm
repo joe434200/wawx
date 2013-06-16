@@ -1,0 +1,97 @@
+{include file=pageheader.htm}
+
+<form enctype="multipart/form-data" action="admin_commentreback.php?act=list" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+     <td width="10%" align="left"><strong>创建者</strong></td>
+    <td width="15%" align="left"><input name="query[nickname]" type="text" id="nickname"  class="txt200"  value="{$query.nickname}"/></td>
+    
+      <td width="10%" align="left"><strong>内容</strong></td>
+    <td width="15%" align="left"><input name="query[content]" type="text" id="keywords"  class="txt200"  value="{$query.content}"/></td>
+    
+    <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td>&nbsp;</td>
+
+  </tr>
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    
+    <th>类型</th>
+   	<th>创建人(昵称)</th>
+   	<th>内容</th>
+   	
+   	<th>屏蔽状态</th>
+   	<th>审核状态</th>
+   
+   	
+    <th>操作</th>
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" colspan="6">系统还没有回复</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+    <td  align="center">{$rebacktype[$item.businesstype]}</td>
+   
+    <td  align="center">{$item.nickname}</td>
+     <td  align="center">{$item.content}</td>
+      
+      <td  align="center">{$shieldstatus[$item.shieldflg]}</td>
+     <td  align="center">{$auditstatus[$item.auditflg]}</td>
+      
+    
+   
+
+    
+    <td  align="center">
+     <a href="admin_commentreback.php?act=audit&id={$item.ID}" {if $item.auditflg eq '0' || $item.auditflg eq ''}title="审核"{else}{/if}><img src="./templates/images/backstage/msn.gif" border="0" height="16" width="16" /></a>
+     <a href="admin_commentreback.php?act=shield&id={$item.ID}" title="屏蔽"><img src="./templates/images/backstage/u14.gif" border="0" height="16" width="16" /></a>
+        
+     
+     
+    </td>
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"  colspan="6">      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+
+
+{include file=pagefooter.htm}
+
+

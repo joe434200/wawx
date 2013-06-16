@@ -1,0 +1,66 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form action="admin_groupcatagory.php?act=submit" method="post" name="theForm">
+
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">圈子名称</td>
+      <td>
+        <input name="data[name]" type="text" id="groupname" size="22" value='{$data.name}'  /><!-- 必须和表中的ID对应 -->
+        <span class="require-field">*</span>
+      </td>
+    </tr>
+
+      <tbody >
+    
+     <tr >
+      <td  class="label">圈子类型</td>
+      <td>
+       <input name="level" type="radio" value="1"  onclick="javascript:hidparentlist()" {if $data neq "" && $data.parentid eq "99999"}checked{elseif $data eq ""}checked{else}{/if}/> 一级
+       
+       <!-- 点了一级就执行hideparentlist这个函数 -->
+       <input id='nodetypechild' name="level" type="radio" value="2" onclick="javascript:hidparentlist()" {if $data neq "" && $data.parentid neq "99999"}checked{/if}/> 二级
+       
+       <!-- 点了二级就执行hideparentlist这个函数 -->
+      </td>
+    </tr>
+   
+     <tr id="upnode" {if $data neq "" && $data.parentid neq "99999"}style="display:block;"{else}style="display:none;"{/if}> 
+      <td  class="label">上级圈子</td>
+      <td>
+         <select name="data[parentid]" id="data[parentid]">
+         <!-- 下面循环才是把所有的上级圈子的名称循环显示出来 -->
+         <option >请选择</option>
+         {foreach from=$parent item=item key=key  }
+         <option value="{$item.ID} " {if $data.parentid eq $item.ID}selected{/if}>{$item.name}</option><!-- ???? -->         
+         {/foreach}<!-- 选择哪个 就会自动提交哪一个ID-->
+         
+        </select>
+      </td>
+    </tr>
+    <tr>
+        <td class="label">圈子备注：</td>
+        <td><textarea name="data[remark]" cols="50" rows="5">{$data.remark}</textarea></td>
+      </tr>
+      
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+       <!-- 保存从edit控制层传过来的对应行的ID -->
+       <input name="id" type="hidden" value="{$data.ID}"  id="id"/>
+        <input type="button" value=" 确定 " class="button" onclick="javascript:grpchecksubmit();"/>
+        <input type="reset" value=" 重置 " class="button" />
+       
+      </td>
+      
+    </tr>
+    </tbody>
+    
+ </table>
+ 
+{include file=warning.tpl}
+</form>
+</div>
+<script src="./templates/scripts/backstage/group_module.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

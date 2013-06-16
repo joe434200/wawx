@@ -1,0 +1,73 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form action="admin_city.php?act=submit" method="post" name="theForm"  >
+<input name="why" type="hidden" value=""  id=""/>
+<input name="preflg" type="hidden" value="{$preflg}"/>
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">名称</td>
+      <td>
+        <input name="data[name]" type="text" id="actname" size="22" value='{$data.name}'  /><span class="require-field">*</span>
+      </td>
+    </tr>
+
+    
+    <tr>
+      <td  class="label" width="20%">级别</td>
+      <td  width="80%">
+         {foreach from=$levels item=item key=key}
+        <input name="data[level]" type="radio" id="level{$key}" size="22" value='{$key+1}'  {if $data.level eq $key}checked{/if}  onclick="javascript:selectlevel()"/>{$item}
+        {/foreach}
+        
+      </td>
+    </tr>
+     
+    <tr  id="selectparent"  {if $data.level neq '0' and $data.level neq ''}style="display:block"{else}style="display:none"{/if}>
+      <td  class="label">上级分类</td>
+      <td>
+        <select name="parent1" id="parent1"  onchange="javascript:ajaxselect(this)"  {if $data.level neq '0' and $data.level neq ''}style="display:block"{else} style="display:none;"{/if}>
+                <option value="" >请选择</option>
+                {foreach from=$countries item=item key=index}
+                <option value="{$item.ID}" {if $data.pid2 eq $item.ID or $data.pid2 eq '99999'}selected {/if}>{$item.name}</option>
+                {/foreach}
+      </select>
+       <select name="parent2" id="parent2"  onchange="javascript:ajaxselect(this)" {if $data.level gt 1}style="display:block"{else} style="display:none;"{/if}>
+                <option value="" >请选择</option>
+                {foreach from=$pdata2 item=item key=index}
+                <option value="{$item.ID}" {if $data.pid1 eq $item.ID}selected {/if}>{$item.name}</option>
+                {/foreach}
+      </select>
+       <select name="parent3" id="parent3"  {if $data.level gt 2}style="display:block"{else} style="display:none;"{/if}>
+                <option value="" >请选择</option>
+                {foreach from=$pdata3 item=item key=index}
+                <option value="{$item.ID}" {if $data.pid0 eq $item.ID}selected {/if}>{$item.name}</option>
+                {/foreach}
+      </select>
+      </td>
+    </tr>
+    
+    <tr>
+        <td class="label">说明</td>
+        <td><textarea name="data[introduction ]" cols="50" rows="5">{$data.introduction}</textarea></td>
+      </tr>
+      
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+       <input name="id" type="hidden" value="{$data.ID}"  id="id"/>
+        <input type="button" value=" 确定 " class="button" onclick="javascript:checksubmit();"/>
+        <input type="reset" value=" 重置 " class="button" />
+       
+      </td>
+      
+    </tr>
+
+    
+ </table>
+ 
+{include file=warning.tpl}
+</form>
+</div>
+<script src="./templates/scripts/backstage/city.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

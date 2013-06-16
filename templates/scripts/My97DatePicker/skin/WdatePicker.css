@@ -1,0 +1,28 @@
+.Wdate{
+	border:#c2c3fc 1px solid;
+	height:20px;
+	width:132px;
+	line-height:16px;
+	background:#fff url(datePicker.gif) no-repeat right;
+}
+
+.WdateFmtErr{
+	font-weight:bold;
+	color:red;
+}
+.NavImgll{
+	float:left;
+	background:transparent url(img.gif) no-repeat scroll -2px 0;
+}
+.NavImgl{
+	float:left;
+	background:transparent url(img.gif) no-repeat scroll -18px 0;
+}
+.NavImgr{
+	float:right;
+	background:transparent url(img.gif) no-repeat scroll -32px 0;
+}
+.NavImgrr{
+	float:right;
+	background:transparent url(img.gif) no-repeat scroll -50px 0;
+}

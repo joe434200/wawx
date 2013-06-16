@@ -1,0 +1,89 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form action="admin_forumcatagory.php?act=submit" method="post" name="theForm">
+
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">类型名称</td>
+      <td>
+        <input name="data[name]" type="text" id="groupname" size="22" value='{$data.name}'  /><!-- 必须和表中的ID对应 -->
+        <span class="require-field">*</span>
+      </td>
+    </tr>
+
+      <tbody >
+    
+     <tr >
+      <td  class="label">论坛类型</td>
+      <td>
+       <input name="level" type="radio" value="1"  onclick="javascript:hidparentlist()" {if $data neq "" && $data.parentid eq "99999"}checked{elseif $data eq ""}checked{else}{/if}/> 一级
+       
+       <!-- 点了一级就执行hideparentlist这个函数 -->
+       <input id='nodetypechild' name="level" type="radio" value="2" onclick="javascript:hidparentlist()" {if $data neq "" && $data.parentid neq "99999"}checked{/if}/> 二级
+       
+       <!-- 点了二级就执行hideparentlist这个函数 -->
+      </td>
+    </tr>
+   
+     <tr id="upnode" {if $data neq "" && $data.parentid neq "99999"}style="display:block;"{else}style="display:none;"{/if}> 
+      <td  class="label">上级论坛</td>
+      <td>
+         <select name="data[parentid]" id="data[parentid]" >
+         <!-- 下面循环才是把所有的上级圈子的名称循环显示出来 -->
+         {foreach from=$parent item=item key=key}
+         <option value="{$item.ID} " {if $data.parentid eq $item.name}selected{/if}>{$item.name}</option><!-- ???? -->         
+         {/foreach}
+         
+        </select>
+      </td>
+    </tr>
+    <tr>
+        <td class="label">备注：</td>
+        <td><textarea name="data[remark]" cols="50" rows="5">{$data.remark}</textarea></td>
+      </tr>
+      <tr>
+      <td  class="label">版主</td>
+      <td>
+        <input name="admin1" type="text"  size="22" value='{$data.mainnickname}'  id="admin_txt1"  class="txtsearch" readonly onclick="javascript:openwindow('0','admin_txt1','admin_ID1');"/><!-- 必须和表中的ID对应 -->
+        <input name="data[admin1]" type="hidden"  size="22" value='{$data.admin1}'  ID = "admin_ID1"  class="txtsearch" />
+        <span class="require-field">*</span>
+      </td>
+    </tr>
+    <tr>
+      <td  class="label">副版主A</td>
+      <td>
+        <input name="admin2" type="text"  size="22" value='{$data.adminnickname1}'   id = "admin_txt2" class="txtsearch" readonly onclick="javascript:openwindow('0','admin_txt2','admin_ID2');"/><!-- 必须和表中的ID对应 -->
+        <input name="data[admin2]" type="hidden"  size="22" value='{$data.admin2}'  ID = "admin_ID2"  class="txtsearch" />
+        <span class="require-field">*</span>
+      </td>
+    </tr>
+    <tr>
+      <td  class="label">副版主B</td>
+      <td>
+        <input name="admin3" type="text"  size="22" value='{$data.adminnickname2}'  id = "admin_txt3" class="txtsearch" readonly onclick="javascript:openwindow('0','admin_txt3','admin_ID3');"/><!-- 必须和表中的ID对应 -->
+        <input name="data[admin3]" type="hidden"  size="22" value='{$data.admin3}'  ID = "admin_ID3"  class="txtsearch" />
+        <span class="require-field">*</span>
+      </td>
+    </tr>
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+       <!-- 保存从edit控制层传过来的对应行的ID -->
+     <input name="id" type="hidden" value="{$data.ID}"  id="id"/>
+        <input type="button" value=" 确定 " class="button" onclick="javascript:grpchecksubmit();"/>
+        <input type="reset" value=" 重置 " class="button" />
+       
+      </td>
+      
+    </tr>
+    </tbody>
+    
+ </table>
+
+{include file=warning.tpl}
+</form>
+</div>
+<script src="./templates/scripts/backstage/group_module.js" type="text/javascript"></script>
+<script src="./templates/scripts/selector.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

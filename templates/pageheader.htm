@@ -1,0 +1,42 @@
+<!-- $Id: ads_list.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="robots" content="noindex, nofollow"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$backstagehome.text} {if $url_here} - {$url_here} {/if}</title>
+
+
+<link href="./templates/css/backstage/general.css" rel="stylesheet" type="text/css" />
+<link href="./templates/css/backstage/main.css" rel="stylesheet" type="text/css" />
+<link href="./templates/pagesplit/page.css" rel="stylesheet" type="text/css" />
+<link href="./templates/scripts/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css" />
+
+<script src="./templates/scripts/prototype.js" type="text/javascript"></script>
+<script src="./templates/scripts/front.js" type="text/javascript"></script>
+<script src="./templates/scripts/validate.js" type="text/javascript"></script>
+<script src="./templates/scripts/jquery-1.6.3.js" type="text/javascript"></script>
+
+<script src="./templates/scripts/backstage/common.js" type="text/javascript"></script>
+<script src="./templates/scripts/backstage/wpCalendar.js" type="text/javascript"></script> 
+<script src="./templates/scripts/backstage/validator.js" type="text/javascript"></script> 
+<script src="./templates/pagesplit/backpage.js" type="text/javascript"></script>
+<script src="./templates/scripts/self_zone.js" type="text/javascript"></script>
+</head>
+<body>
+
+
+
+
+
+
+
+<h1>
+{if $action_link}
+ {foreach from=$action_link item=item key=key}
+<span class="action-span"><a href="{$item.href}">{$item.text}</a></span>
+{/foreach}
+{/if}
+<span class="action-span1"><a href="{$backstagehome.href}">{$backstagehome.text}</a> </span><span id="search_id" class="action-span1"> {if $url_here} - {$url_here} {/if} </span>
+<div style="clear:both"></div>
+</h1>

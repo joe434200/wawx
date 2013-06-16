@@ -1,0 +1,148 @@
+{include file=pageheader.htm}
+
+<form enctype="multipart/form-data" action="admin_business.php?act=list" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+     <tr  id="person" > 
+      <td width="7%" align="left"><strong>商家名称</strong></td>
+    <td width="15%" align="left"><input name="query[shopname]" type="text" id="shopname"  class="txt200"  value="{$query.shopname}"/></td>
+     
+     
+         <td width="7%" align="left"><strong>负责人</strong></td>
+    <td width="15%" align="left"><input name="query[chargeperson]" type="text" id="chargeperson"  class="txt200"  value="{$query.chargeperson}"/></td>
+    
+        <td width="7%" align="left"><strong>门店地址</strong></td>
+    <td width="15%" align="left"><input name="query[storeaddr]" type="text" id="storeaddr"  class="txt200"  value="{$query.storeaddr}"/></td>
+    
+         <td width="7%" align="left"><strong>经营范围</strong></td>
+    <td width="15%" align="left"><input name="query[scope]" type="text" id="scope"  class="txt200"  value="{$query.scope}"/></td>
+    
+      <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td align="right"></td>
+     </tr>
+     
+     
+
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+
+   
+
+    
+    <th>商家名称</th>
+
+
+    <th> 经营范围</th>
+    <th>负责人</th>
+    <th>联系电话</th>
+    <th>门店地址</th>
+    <th>营业执照</th>
+    
+    <th colspan="2">品牌商家</th>
+    
+      <th  colspan="2">今日推荐商家</th>
+       <th colspan="2">今日推荐广告商家</th>
+    <th  colspan="2">热点商家</th>
+    <th  colspan="2">签约商家商家</th>
+    
+     <th  colspan="2">推荐商家</th>
+     
+      <th colspan="2">认证商家</th>
+      <th>审核状态</th>
+      
+   
+
+   
+   	
+    <th>操作</th>
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" colspan="22">系统还没有商家注册</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+     <td  align="center">{$item.shopname}</td>
+    <td  align="center">{$item.scope}</td>
+    <td  align="center">{$item.chargeperson}</td>
+    <td  align="center">{$item.contactphone}</td>
+     <td  align="center">{$item.storeaddr}</td>
+     <td  align="center" >{if $item.busilicence  neq ''}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{/if}</td>
+     
+      <td  align="center" id="{$item.ID}_1_img">{if $item.isbrand eq '1'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  />{/if}</td>
+      <td  align="center" id="{$item.ID}_1_txt">{if $item.isbrand eq '1'} <a href="#" onclick="javascript:setStatus('1','0','{$item.ID}')">取消</a>{else}<a href="#" onclick="javascript:setStatus('1','1','{$item.ID}')">设置</a>{/if}</td>
+     
+     <td  align="center" id="{$item.ID}_2_img">{if $item.isrecommend eq '1'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  />{/if}</td>
+       <td  align="center" id="{$item.ID}_2_txt">{if $item.isrecommend eq '1'}<a href="#" onclick="javascript:setStatus('2','0','{$item.ID}')">取消</a>{else}<a href="#" onclick="javascript:setStatus('2','1','{$item.ID}')">设置</a>{/if}</td>
+         <td  align="center" id="{$item.ID}_3_img">{if $item.isadvertshop eq '1'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  />{/if}</td>
+       <td  align="center" id="{$item.ID}_3_txt">{if $item.isadvertshop eq '1'}<a href="#" onclick="javascript:setStatus('3','0','{$item.ID}')">取消</a>{else}<a href="#" onclick="javascript:setStatus('3','1','{$item.ID}')">设置</a>{/if}</td>
+      <td  align="center" id="{$item.ID}_4_img">{if $item.ishot eq '1'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  />{/if}</td>
+       <td  align="center" id="{$item.ID}_4_txt">{if $item.ishot eq '1'}<a href="#" onclick="javascript:setStatus('4','0','{$item.ID}')">取消</a>{else}<a href="#" onclick="javascript:setStatus('4','1','{$item.ID}')">设置</a>{/if}</td>
+         <td  align="center" id="{$item.ID}_5_img">{if $item.issignshop eq '1'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  />{/if}</td>
+       <td  align="center" id="{$item.ID}_5_txt">{if $item.issignshop eq '1'}<a href="#" onclick="javascript:setStatus('5','0','{$item.ID}')">取消</a>{else}<a href="#" onclick="javascript:setStatus('5','1','{$item.ID}')">设置</a>{/if}</td>
+         <td  align="center" id="{$item.ID}_6_img">{if $item.isrecommendshop eq '1'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  />{/if}</td>
+       <td  align="center" id="{$item.ID}_6_txt">{if $item.isrecommendshop eq '1'}<a href="#" onclick="javascript:setStatus('6','0','{$item.ID}')">取消</a>{else}<a href="#" onclick="javascript:setStatus('6','1','{$item.ID}')">设置</a>{/if}</td>
+         <td  align="center" id="{$item.ID}_7_img">{if $item.iscertificationshop eq '1'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  />{/if}</td>
+       <td  align="center" id="{$item.ID}_7_txt">{if $item.iscertificationshop eq '1'}<a href="#" onclick="javascript:setStatus('7','0','{$item.ID}')">取消</a>{else}<a href="#" onclick="javascript:setStatus('7','1','{$item.ID}')">设置</a>{/if}</td>
+       
+    
+    
+     <td  align="center">{$auditstatus[$item.verifystate]}</td>
+    
+    
+   
+    
+   
+
+    
+    <td  align="center">
+     
+   
+     <!-- <a href="admin_business.php?act=edit&id={$item.ID}">编辑</a>
+      | --><a href="admin_business.php?act=audit&id={$item.ID}">审核</a>
+     |  <a href="admin_business.php?act=del&id={$item.ID}">删除</a>
+    </td>
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"  colspan="22">      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+<script src="./templates/scripts/backstage/business.js" type="text/javascript"></script>
+
+{include file=pagefooter.htm}
+
+

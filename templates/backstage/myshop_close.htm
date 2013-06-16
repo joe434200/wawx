@@ -1,0 +1,121 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form id="theForm" action="shopadmin_shop.php?act=close_rs" method="post" name="theForm" enctype="multipart/form-data">
+
+  <table width="10%" id="general-table"  border = '0'  class="ttbb2" cellspacing="0" cellpadding="0">
+
+       <tr>
+      <td  class="tdclass" width="10%">店铺名称</td>
+      <td width="15%" colspan="3">
+      {$data.shopname}
+      </td>
+    </tr>
+     <tr>
+    
+       <td  class="tdclass" width="10%">电话</td>
+      <td width="15%">
+        {$data.telephone} 
+      </td>
+       <td  class="tdclass" width="10%">地址</td>
+      <td width="15%">
+        {$data.address}  
+      </td>
+     
+    </tr>
+    
+     <tr>
+    
+       <td  class="tdclass" width="10%">国家</td>
+      <td width="15%">
+        {$data.countryname} 
+      </td>
+       <td  class="tdclass" width="10%">省/直辖市</td>
+      <td width="15%">
+        {$data.provincename}  
+      </td>
+     
+    </tr>
+    
+     <tr>
+    
+       <td  class="tdclass" width="10%">市</td>
+      <td width="15%">
+        {$data.cityname} 
+      </td>
+       <td  class="tdclass" width="10%">区</td>
+      <td width="15%">
+        {$data.skirtname}  
+      </td>
+     
+    </tr>
+    
+      <tr>
+        <td class="tdclass">店铺营业执照</td>
+        <td ><a href="shopadmin_shop.php?act=download&id={$data.ID}">{$data.busilicence }</a></td>
+         <td  class="tdclass" width="10%">公交线路</td>
+      <td width="15%">
+        {$data.busline}  
+      </td>
+      </tr>
+     <tr>
+      <td  class="tdclass" width="10%">店铺照片</td>
+      <td width="15%" >
+      <img src="./uploadfiles/shop/{$data.shoppicture}" border="0" height="200" width="300"  />
+      </td>
+       <td  class="tdclass" width="10%"> 地图</td>
+      <td width="15%" >
+      <img src="./uploadfiles/shop/{$data.mapurl}" border="0" height="200" width="300"  />
+      </td>
+    </tr>
+    
+     <tr>
+    
+       <td  class="tdclass" width="10%">店铺状态</td>
+       <td  colspan="3">
+       {if $data.isclose neq '1'}
+       <input name="data[isclose]" type="radio" value="1" checked/> 闭店
+       {else}
+       <input name="data[isclose]" type="radio" value="0"  checked/> 开店
+       {/if}
+       </td>
+    
+     
+    </tr>
+     <tr>
+    
+       <td  class="tdclass" width="10%">闭店原因</td>
+       <td  colspan="3"><textarea name="data[closereason]" cols="130" rows="5">{$data.closereason}</textarea></td>
+    
+     
+    </tr>
+      
+
+    
+      
+
+      
+
+      
+
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td colspan="3">
+         <input type="hidden" value="{$data.ID}" id="id" name="id"/>
+        <input type="button" value=" 返回 " class="button"  onclick="javascript:history.go(-1);"/>
+     
+ 		<input type="submit" value=" 确定 " class="button"  />
+       
+       
+      </td>
+      
+    </tr>
+
+    
+ </table>
+
+</form>
+
+</div>
+
+{include file=pagefooter.htm}

@@ -1,0 +1,149 @@
+{include file=pageheader.htm}
+
+<form enctype="multipart/form-data" action="admin_act.php?act=list" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+   <td width="10%" align="left"><strong>活动分类</strong></td>
+    <td width="15%" align="left"><select name="query[idm_act_catalog]" id="idm_act_catalog"  >
+                <option value="" >请选择</option>
+                {foreach from=$actcatalog item=item key=index}
+                <option value="{$item.ID}" {if $query.idm_act_catalog eq $item.ID}selected{/if}>{$item.name}</option>
+                {/foreach}
+      </select></td>
+    
+     <td width="10%" align="left"><strong>圈子活动</strong></td>
+    <td width="15%" align="left"><select name="query[grpflg]" id="grpflg"  >
+                <option value="" >请选择</option>
+                {foreach from=$YNflg item=item key=key}
+                <option value="{$key}" {if $query.grpflg eq $keyD}selected{/if}>{$item}</option>
+                {/foreach}
+      </select></td>
+    
+    <td width="10%" align="left"><strong>活动名称</strong></td>
+    <td width="15%" align="left"><input name="query[actname]" type="text" id="actname"  class="txt200"  value="{$query.actname}"/></td>
+     </tr>
+    <tr>
+      <td width="10%" align="left"><strong>关键字</strong></td>
+    <td width="15%" align="left"><input name="query[keywords]" type="text" id="keywords"  class="txt200"  value="{$query.keywords}"/></td>
+   
+      <td width="10%" align="left"><strong>开始时间</strong></td>
+    <td width="15%" align="left"><input name="query[begintime]" type="text" id="keywords"  class="Wdate"  onClick="WdatePicker();"  value="{$query.begintime}"/></td>
+    
+      <td width="10%" align="left"><strong>结束时间</strong></td>
+    <td width="15%" align="left"><input name="query[endtime]" type="text" id="keywords"  class="Wdate"  onClick="WdatePicker();" value="{$query.endtime}"/></td>
+     
+    
+    <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td>&nbsp;</td>
+
+  </tr>
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>活动名称</th>
+    <th>活动类型</th>
+    <th>圈子活动</th>
+    <th>所属圈子</th>
+    
+    <th>推荐活动</th>
+    <th>专题活动</th>
+    
+    <th>开始时间</th>
+    <th>结束时间</th>
+    <th>关键字</th>
+    <th>图片数</th>
+    <th> 关注人数</th>
+    <th>参加人数</th>
+    <th>活动回复数</th>
+   
+   
+   
+
+    
+    
+   	<th>创建人(昵称)</th>
+   
+   	
+    <th>操作</th>
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" colspan="15">系统还没有活动</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+    <td  align="center"><a href="admin_act.php?act=show&id={$item.ID}">{$item.actname}</a></td>
+    <td  align="center">{$item.acttypename}</td>
+    <td  align="center">{if $item.grpflg eq '1'} <img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  /> {/if}</td>
+    <td  align="center">{$item.groupname}</td>
+    <td  align="center">{if $item.remcommendflg eq '1'} <img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  /> {/if}</td>
+    <td  align="center">{if $item.themeflg eq '1'} <img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  /> {/if}</td>
+    
+    
+    <td  align="center">{$item.begintime|date_format:"%Y/%m/%d %H:%m:%S"}</td>
+     <td  align="center">
+
+		{$item.endtime|date_format:"%Y/%m/%d %H:%m:%S"}
+    </td>
+    
+     <td  align="center">{$item.keywords}</td>
+    <td  align="center"><a href="admin_actphoto.php?act=shield&id={$item.ID}">{$item.photonum}</a></td>
+     <td  align="center">{$item.attentionnum}</td>
+     <td  align="center">{$item.membernum}</td>
+     <td  align="center">{$item.replynum}</td>
+     
+    <td  align="center">{$item.nickname}</td>
+    
+   
+
+    
+    <td  align="center">
+      <a href="admin_act.php?act=recommend&id={$item.ID}" title="推荐"><img src="./templates/images/backstage/icon3.gif" border="0" height="16" width="16" /></a>
+         <a href="admin_act.php?act=theme&id={$item.ID}" title="专题"><img src="./templates/images/backstage/icon2.gif" border="0" height="10" width="16" /></a>
+        
+     
+     
+    </td>
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"  colspan="15">      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+
+
+{include file=pagefooter.htm}
+
+

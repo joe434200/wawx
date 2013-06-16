@@ -1,0 +1,125 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form id="theForm" action="admin_shop.php?act=audit_rs" method="post" name="theForm" >
+
+  <table width="10%" id="general-table"  border = '0'  class="ttbb2" cellspacing="0" cellpadding="0">
+    <tr>
+      <td  class="tdclass" width="10%">商家名称</td>
+      <td width="15%" colspan="3">
+      {$data.businame}
+      </td>
+   
+     
+        
+    </tr>
+       <tr>
+    
+       <td  class="tdclass" width="10%">负责人</td>
+      <td width="15%">
+        {$data.chargeperson} 
+      </td>
+       <td  class="tdclass" width="10%">联系电话</td>
+      <td width="15%">
+        {$data.contactphone}  
+      </td>
+     
+        
+    </tr>
+
+    
+     <tr>
+      <td  class="tdclass" >经营范围</td>
+      <td >
+       {$data.scope}
+ 		</td>
+  		<td  class="tdclass">门店地址</td>
+      <td >
+        {$data.storeaddr} 
+      </td>
+    </tr>
+
+<tr><td colspan="4">&nbsp;</td></tr>
+
+      
+       <tr>
+      <td  class="tdclass" width="10%">店铺名称</td>
+      <td width="15%" colspan="3">
+      {$data.shopname}
+      </td>
+    </tr>
+     <tr>
+    
+       <td  class="tdclass" width="10%">电话</td>
+      <td width="15%">
+        {$data.telephone} 
+      </td>
+       <td  class="tdclass" width="10%">地址</td>
+      <td width="15%">
+        {$data.address}  
+      </td>
+     
+    </tr>
+    
+      <tr>
+        <td class="tdclass">店铺营业执照</td>
+        <td ><a href="admin_shop.php?act=download&id={$data.ID}">{$data.busilicence }</a></td>
+         <td  class="tdclass" width="10%">公交线路</td>
+      <td width="15%">
+        {$data.busline}  
+      </td>
+      </tr>
+     <tr>
+      <td  class="tdclass" width="10%">店铺照片</td>
+      <td width="15%" >
+      <img src="./uploadfiles/shop/{$data.shoppicture}" border="0" height="200" width="300"  />
+      </td>
+       <td  class="tdclass" width="10%"> 地图</td>
+      <td width="15%" >
+      <img src="./uploadfiles/shop/{$data.mapurl}" border="0" height="200" width="300"  />
+      </td>
+    </tr>
+    
+      
+
+    
+      
+
+      
+
+       <tr>
+        <td class="tdclass">审核结果</td>
+        <td colspan="3">
+          <select name="data[verifystate]" id="verifystate"  >
+                {foreach from=$auditstatus item=item key=index}
+                <option value="{$index}" {if $data.auditstatus eq $index}selected {/if}>{$item}</option>
+                {/foreach}
+      </select>
+        </td>
+      </tr>
+       <tr>
+        <td class="tdclass">生效时间</td>
+        <td colspan="3"><input name="data[effecttime]" type="text" id="effecttime"  class="Wdate"  onClick="WdatePicker();"  value="{$data.effecttime|date_format:"%Y-%m-%d"}"/></td>
+      </tr>
+
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td colspan="3">
+         <input type="hidden" value="{$data.ID}" id="id" name="id"/>
+        <input type="button" value=" 返回 " class="button"  onclick="javascript:history.go(-1);"/>
+     
+        <input type="submit" value=" 确定 " class="button" />
+       
+       
+      </td>
+      
+    </tr>
+
+    
+ </table>
+ </form>
+
+
+</div>
+
+{include file=pagefooter.htm}

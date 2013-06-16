@@ -1,0 +1,85 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #09719D;
+	cursor: pointer;
+}
+a:hover {
+	color: #0FB8FF;
+}
+a.kbd {
+	background-color: #E5E5E5;
+	border-color: #ECECEC #ACACAC #ACACAC #ECECEC;
+	border-style: solid;
+	border-width: 2px;
+	color: #858585;
+	font: normal 12px/18px Arial, sans-serif;
+	margin-right: 6px;
+	padding: 1px 3px;
+}
+a:hover.kbd {
+	background-color: #0FB8FF;
+	border-color: #0FB8FF;
+	color: #FFF;
+}
+
+code {
+	background-color: #E5E5E5;
+	color: #666;
+	display: block;
+	font: normal 10px/14px "Lucida Console", Monaco, monospace;
+	float: left;
+	margin: 9px 0 18px 0;
+	width: 592px;
+	padding: 9px 18px;
+}
+
+em {
+	color: #998000;
+	font-style: normal;
+}
+
+
+
+input.calendar{
+	border-color: #ACACAC #E1E1E1 #E1E1E1 #ACACAC;
+	float: left;
+
+}
+form.short input, 
+form.short select {
+	width: 75px;
+}
+form.long input.alternate,
+form.long select.alternate,
+form.long input.calendar,
+form.long select.calendar {
+	width: 149px;
+}
+
+form.short input.alternate,
+form.short select.alternate,
+form.short input.calendar,
+form.short select.calendar {
+	width: 49px;
+}
+
+
+form label {
+	color: #262626;
+	font: normal 12px/18px Arial, sans-serif;
+	float: left;
+	margin-right: 6px;
+	text-align: right;
+	width: 50px;
+}
+form legend {
+	background: #E5E5E5;
+	color: #262626;
+	font: normal 12px/18px Arial, sans-serif;
+	margin-bottom: 9px;
+	padding: 2px 11px;
+}

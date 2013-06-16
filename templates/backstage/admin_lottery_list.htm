@@ -1,0 +1,73 @@
+{include file=pageheader.htm}
+
+
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>活动介绍</th>
+    <th>开始时间</th>
+    <th>结束时间</th>
+    <th>管理员ID</th>
+    <th>扣校币数量</th>
+    <th>图片url</th>
+    <th>其它</th>
+    <th>操作</th>
+  </tr>
+  {if $allinfor|@count eq 0}
+      <tr><td class="no-records" colspan="10">您还没有添加抽奖活动</td></tr>
+  {else}
+ {foreach from=$allinfor item=item key=key}
+  <tr>
+    <td align="center">{$item.activityintroduce}</td>
+    <td  align="center">{$item.starttime}</td>
+    <td align="center">{$item.endtime}</td>
+    <td  align="center">{$item.idt_user}</td>
+    <td align="center">{$item.integralnum}</td>
+    <td  align="center">{$item.picture}</td>
+    <td  align="center">
+    <a href="admin_lottery.php?act=set&id={$item.ID}">设置商品</a>
+    <a href="admin_prize.php?act=list&id={$item.ID}">查看活动商品</a>
+    </td>
+    
+    <td  align="center">
+    <a href="admin_lottery.php?act=edit&id={$item.ID}" title="编辑"><!-- 大写ID 是什么 -->
+    <img src="./templates/images/backstage/icon_edit.gif" border="0" height="16" width="16" /></a>
+    <!-- 把id传到控制层 -->
+      <a href="javascript:confirm_redirect
+      ('您确定要删除该模块吗？', 'admin_lottery.php?act=del&id={$item.ID}')" title="删除">
+      <img src="./templates/images/backstage/icon_drop.gif" border="0" height="16" width="16" /></a>
+    
+    </td>
+  </tr>
+  {/foreach}
+  {/if}
+
+    <tr>
+    <td align="right"  colspan="10">      
+     
+ <!-- 分页控件开始-->    
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+ <!-- 分页控件结束-->       
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+
+
+{include file=pagefooter.htm}
+
+

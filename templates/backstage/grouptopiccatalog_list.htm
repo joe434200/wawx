@@ -1,0 +1,59 @@
+{include file=pageheader.htm}
+
+
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>圈子话题分类名称</th>
+    <th>上级分类名称</th>
+    <th>备注</th>
+   
+    <th>操作</th>
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" colspan="10">您还没有添加圈子话题分类！</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+    <td align="center">{$item.name}</td>
+    <td  align="center">{$item.parentname}</td>
+    <td  align="center">{$item.remark}</td>
+    <td  align="center">
+    <a href="admin_grouptopictype.php?act=edit&id={$item.ID}" title="编辑"><img src="./templates/images/backstage/icon_edit.gif" border="0" height="16" width="16" /></a>
+      
+      <a href="javascript:confirm_redirect('您确定要删除该分类吗？', 'admin_grouptopictype.php?act=del&id={$item.ID}')" title="删除"><img src="./templates/images/backstage/icon_drop.gif" border="0" height="16" width="16" /></a>
+    
+    </td>
+  </tr>
+  {/foreach}
+  {/if}
+
+    <tr>
+    <td align="right"  colspan="10">      
+     
+ <!-- 分页控件开始-->    
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+ <!-- 分页控件结束-->       
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+
+
+{include file=pagefooter.htm}
+
+

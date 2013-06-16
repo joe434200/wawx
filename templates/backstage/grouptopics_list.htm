@@ -1,0 +1,117 @@
+{include file=pageheader.htm}
+
+<form enctype="multipart/form-data" action="admin_grouptopicmanage.php?act=list" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+   <td width="5%" align="left"><strong>话题分类</strong></td>
+    <td width="15%" align="left">
+<select name="query[idm_grptopic_catalog]" id="idm_grptopic_catalog"  >
+                <option value="" >请选择</option>
+                {foreach from=$grouptopictype item=item key=index}
+                <option value="{$item.ID}" {if $query.idm_grptopic_catalog eq $item.ID}selected{/if}>{$item.name}</option>
+                {/foreach}
+      </select>
+   </td>
+   <td width="5%" align="left"><strong>标题</strong></td>
+    <td width="15%" align="left"><input name="query[title]" type="text" id="title"  class="txt200"  value="{$query.groupname}"/></td>
+    <td width="5%" align="left"><strong>圈子名称</strong></td>
+    <td width="15%" align="left"><input name="query[groupname]" type="text" id="groupname"  class="txt200"  value="{$query.groupname}"/></td>
+    
+      <td width="5%" align="left"><strong>标签</strong></td>
+    <td width="15%" align="left"><input name="query[lables]" type="text" id="lables"  class="txt200"  value="{$query.lables}"/></td>
+    
+    <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td>&nbsp;</td>
+
+  </tr>
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>话题标题</th>
+    <th>话题类型</th>
+    <th>所属圈子</th>
+    <th>标签</th>
+    <th>浏览数</th>
+    <th>帖子活动数</th>
+    <th>话题回复数量</th>
+   	<th>创建人(昵称)</th>
+   	<th>精华话题</th>
+   	<th>置顶状态</th>
+   	<th>屏蔽状态</th>
+    <th>操作</th>
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" colspan="12">系统还没有圈子话题</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+    <td  align="center"><a href="admin_group.php?act=show&id={$item.ID}">{$item.title}</a></td>
+    <td  align="center">{$item.grptopicname}</td>
+    <td  align="center"><a href="admin_group.php?act=show&id={$item.idt_grp_main}">{$item.groupname}</a></td>
+     <td  align="center">
+
+   {foreach from=$item.labels item=item1 key=key1}
+   {$item1.label} &nbsp;
+   {/foreach}
+
+    </td>
+    
+     <td  align="center">{$item.browsenum}</td>
+    <td  align="center">{$item.actnum}</td>
+     <td  align="center">{$item.replynum}</td>
+    <td  align="center">{$item.nickname}</td>
+    
+     <td  align="center">{$excelstatus[$item.excelflg]}</td>
+     <td  align="center">{$topstatus[$item.topflg]}</td>
+    <td  align="center">{$shieldstatus[$item.shieldflg]}</td>
+
+    
+    <td  align="center">
+   <a href="admin_grouptopicmanage.php?act=shield&id={$item.ID}" title="屏蔽"><img src="./templates/images/backstage/u14.gif" border="0" height="16" width="16" /></a>
+        
+     
+    </td>
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"  colspan="12">      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+
+
+{include file=pagefooter.htm}
+
+

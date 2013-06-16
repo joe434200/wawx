@@ -1,0 +1,98 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form id="theForm" action="admin_business.php?act=audit_rs" method="post" name="theForm" >
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">商家名称</td>
+      <td>
+      {$data.shopname}
+      </td>
+    </tr>
+    <tr>
+      <td  class="label">商家头像(Logo)</td>
+      <td>
+        <img src="./uploadfiles/register/{$data.photo}" border="0" height="90" width="90"  />
+      </td>
+    </tr>
+    
+     <tr>
+      <td  class="label">经营范围</td>
+      <td>
+       {$data.scope}
+ </td>
+    </tr>
+    
+     <tr >
+      <td  class="label">负责人</td>
+      <td>
+        {$data.chargeperson} 
+      </td>
+    </tr>
+     <tr >
+      <td  class="label">联系电话</td>
+      <td>
+        {$data.contactphone}  
+      </td>
+    </tr>
+    
+      <tr >
+      <td  class="label">门店地址</td>
+      <td>
+        {$data.storeaddr} 
+      </td>
+    </tr>
+    
+    
+    
+      <tr>
+        <td class="label">营业执照</td>
+        <td><a href="admin_business.php?act=download&id={$data.ID}">{$data.busilicence }</a></td>
+      </tr>
+      
+     
+      
+       
+    
+    <tr>
+        <td class="label">备注</td>
+        <td><textarea name="" cols="50" rows="5">{$data.content}</textarea></td>
+      </tr>
+      
+
+       <tr>
+        <td class="label">审核结果</td>
+        <td>
+          <select name="data[verifystate]" id="verifystate"  >
+                {foreach from=$auditstatus item=item key=index}
+                <option value="{$index}" {if $data.auditstatus eq $index}selected {/if}>{$item}</option>
+                {/foreach}
+      </select>
+        </td>
+      </tr>
+       <tr>
+        <td class="label">生效时间</td>
+        <td><input name="data[effecttime]" type="text" id="effecttime"  class="Wdate"  onClick="WdatePicker();"  value="{$data.effecttime|date_format:"%Y-%m-%d"}"/></td>
+      </tr>
+
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+         <input type="hidden" value="{$data.ID}" id="id" name="id"/>
+        <input type="button" value=" 返回 " class="button"  onclick="javascript:history.go(-1);"/>
+     
+        <input type="submit" value=" 确定 " class="button" />
+       
+       
+      </td>
+      
+    </tr>
+    </tbody>
+    
+ </table>
+ </form>
+
+
+</div>
+<script src="./templates/scripts/backstage/act.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

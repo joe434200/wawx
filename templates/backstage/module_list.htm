@@ -1,0 +1,104 @@
+{include file=pageheader.htm}
+
+<form enctype="multipart/form-data" action="admin_module.php?act=list" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10%" align="left"><strong>模块名称</strong></td>
+    <td width="15%" align="left"><input name="query[modulename]" type="text" id="modulename"  class="txt200"  value="{$query.modulename}"/></td>
+     <td width="10%" align="left"><strong>所属模块</strong></td>
+    <td width="15%" align="left">
+<select name="query[parentid]" id="parentid"  >
+                <option value="" >请选择</option>
+                {foreach from=$pmodules item=item key=index}
+                <option value="{$item.ID}" {if $query.parentid eq $item.ID}selected{/if}>{$item.modulename}</option>
+                {/foreach}
+      </select>
+
+
+
+   </td>
+     <td width="10%" align="left"><strong>适用类型</strong></td>
+    <td width="15%" align="left">
+<select name="query[usertype]" id="usertype"  >
+                <option value="" >请选择</option>
+                {foreach from=$usertype item=item key=key}
+                <option value="{$key}" {if $query.usertype eq $key}selected{/if}>{$item}</option>
+                {/foreach}
+      </select>
+</td>
+    <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td>&nbsp;</td>
+
+  </tr>
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>模块名称</th>
+   
+    <th>链接</th>
+      <th>所属模块</th>
+    <th>适用类型</th>
+   
+    <th>操作</th>
+  </tr>
+  {if $modules|@count eq 0}
+      <tr><td class="no-records" colspan="10">您还没有添加模块</td></tr>
+  {else}
+ {foreach from=$modules item=item key=key}
+  <tr>
+    <td align="center">{if $item.delflag eq 1}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16" alt="已删除"/>{/if}{$item.modulename}</td>
+    <td  align="center">{$item.moduleurl}</td>
+    <td  align="center">{$item.parentname}</td>
+    <td  align="center">{$usertype[$item.usertype]}</td>
+    <td  align="center">
+    <a href="admin_module.php?act=edit&id={$item.ID}" title="编辑"><img src="./templates/images/backstage/icon_edit.gif" border="0" height="16" width="16" /></a>
+      
+      <a href="javascript:confirm_redirect('您确定要删除该模块吗？', 'admin_module.php?act=del&id={$item.ID}')" title="删除"><img src="./templates/images/backstage/icon_drop.gif" border="0" height="16" width="16" /></a>
+    {if $item.delflag eq 1}
+    <a href="admin_module.php?act=reuse&id={$item.ID}" title="再启用"><img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16" /></a>
+    {/if}
+    </td>
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"  colspan="10">      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+
+
+{include file=pagefooter.htm}
+
+

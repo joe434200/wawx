@@ -1,0 +1,136 @@
+{include file=pageheader.htm}
+
+<form enctype="multipart/form-data" action="shopadmin_goods.php?act=list" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+     <tr  id="person" > 
+    
+     
+     
+         <td width="7%" align="left"><strong>店铺名称</strong></td>
+    <td width="15%" align="left"><input name="query[shopname]" type="text" id="shopname"  class="txt200"  value="{$query.shopname}"/></td>
+    
+     <td width="7%" align="left"><strong>商品名称</strong></td>
+    <td width="15%" align="left"><input name="query[goodsname]" type="text" id="goodsname"  class="txt200"  value="{$query.goodsname}"/></td>
+    
+        <td width="7%" align="left"><strong>是否特价</strong></td>
+    <td width="15%" align="left">
+     <select name="query[ispromote]" id="ispromote" >
+                 <option value="" {if $query.ispromote eq ''}selected {/if}>请选择</option>
+                 {foreach from=$YNStatus item=item key=index}
+                <option value="{$index}" {if $query.ispromote eq $index && $query.ispromote neq ''}selected {/if}>{$item}</option>
+                {/foreach}
+              </select>
+    </td>
+    
+         <td width="7%" align="left"><strong>是否缺货</strong></td>
+    <td width="15%" align="left">
+     <select name="query[isout]" id="isout" >
+      <option value=""  {if $query.isout eq ''}selected {/if}>请选择</option>
+                 {foreach from=$YNStatus item=item key=index}
+                <option value="{$index}" {if $query.isout eq $index && $query.isout neq ''}selected {/if}>{$item}</option>
+                {/foreach}
+              </select>
+    </td>
+    
+  
+    
+      <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td align="right"></td>
+     </tr>
+     
+     
+    
+     
+
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>商品名称</th>
+    <th> 商品关键词</th>
+    <th>商品简单说明</th>
+     <th > 添加时间</th>
+    <th>所属店铺</th>
+    
+    <th>是否上架</th>
+    <th>是否特价</th>
+    
+   
+    <th >是否缺货</th>
+   
+    
+   
+
+   
+   	
+    <th>操作</th>
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" colspan="9">你还没有添加任何商品</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+   <td  align="center">{$item.goodsname}</td>
+   <td  align="center">{$item.keywords}</td>
+   <td  align="center">{$item.goodsbrief}</td>
+   <td  align="center">{$item.addtime|date_format:"%Y/%m/%d" }</td>
+    <td  align="center">{$item.shopname}</td>
+
+     <td  align="center" >{if $item.isonsale  neq '' and $item.isonsale neq '0'}{else}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{/if}</td>
+    <td  align="center" >{if $item.ispromote  neq '' and $item.ispromote neq '0'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{/if}</td>
+      <td  align="center" >{if $item.isout  neq '' and $item.isout neq '0'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{/if}</td>
+     
+   
+    
+    <td  align="center">
+     
+   
+     <a href="shopadmin_goodscomment.php?act=ini&id={$item.ID}&f=I">查看评论</a>
+      | <a href="shopadmin_goods.php?act=edit&id={$item.ID}">编辑</a>
+      | 
+       <a href="javascript:confirm_redirect('您确定要删除该商品吗？', 'shopadmin_goods.php?act=del&id={$item.ID}&s={$item.isdelete}')" title="删除">删除</a>
+    </td>
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"  colspan="9">      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+<script src="./templates/scripts/backstage/business.js" type="text/javascript"></script>
+
+{include file=pagefooter.htm}
+
+

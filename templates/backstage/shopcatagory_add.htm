@@ -1,0 +1,56 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form action="admin_shopcatagory.php?act=submit" method="post" name="theForm"  ">
+<input name="why" type="hidden" value=""  id=""/>
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">分类名称</td>
+      <td>
+        <input name="data[name]" type="text" id="shopname" size="22" value='{$data.name}'  /><span class="require-field">*</span>
+      </td>
+    </tr>
+
+    
+  
+     
+    <tr  id="selectparent" >
+      <td  class="label">上级分类</td>
+      <td>
+        <select name="data[parentid]" id="parentid"  >
+        <option value="99999" >请选择</option>
+                {foreach from=$lev1list item=item key=index}
+                <option value="{$item.ID}" {if $data.parentid eq $item.ID}selected {/if}>{$item.name}</option>
+                {/foreach}
+      </select>
+      </td>
+    </tr>
+    
+      <tr>
+        <td class="label">是否显示</td>
+        <td><input name="data[isshow]" type="radio" id="isshow1" size="22" value='1'  {if $data.isshow eq 1 || $data.isshow eq ''}checked{/if}/>显示<input name="data[isshow]" type="radio" id="isshow0" size="22" value='0'  {if $data.isshow eq '0' }checked{/if}/>不显示</td>
+      </tr>
+    <tr>
+        <td class="label">Key值</td>
+        <td><input name="data[shopvalue]" type="text" id="shopvalue" size="22" value='{$data.shopvalue}'  /><span class="require-field">*</span></td>
+      </tr>
+      
+   
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+       <input name="id" type="hidden" value="{$data.ID}"  id="id"/>
+        <input type="button" value=" 确定 " class="button" onclick="javascript:checksubmit();"/>
+        <input type="reset" value=" 重置 " class="button" />
+       
+      </td>
+      
+    </tr>
+
+    
+ </table>
+ 
+{include file=warning.tpl}
+</form>
+</div>
+<script src="./templates/scripts/backstage/shopcatagory.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

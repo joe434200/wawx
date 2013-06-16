@@ -1,0 +1,6 @@
+[DB]
+DB_HOST=127.0.0.1
+DB_NAME=workflow
+#DB_NAME=STTEST
+DB_USER=root
+DB_USER_PASSWORD=root

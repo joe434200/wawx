@@ -1,0 +1,64 @@
+<?php
+final class ConstUtil{
+
+
+
+//常量调用方法
+ public static function getConstArray($key)
+    {
+    	$methodName = "get".$key;
+    	$class = new ReflectionClass('ConstUtil');
+
+
+    	if(!$class->hasMethod($methodName))
+    	{
+        	throw new Exception($methodName." is missing");
+        	return null;
+        }
+        else
+        {
+
+        	$setter = $class->getMethod($methodName);
+    		$ok = $setter->invoke(null,null);
+    		return $ok;
+
+        }
+
+    }
+
+public static function getWeekDayList()
+{
+	 $data = array('0' => '日',
+                      '1' =>'月',
+                      '2' => '火',
+                      '3' => '水',
+                      '4' => '木',
+	 				  '5' => '金',
+	                  '6' => '土'
+
+	                       );
+           return $data;
+}
+public static function getCompanyType()
+{
+	 $data = array('0' => '日',
+                      
+	                  '1' => '土'
+
+	                       );
+           return $data;
+}
+
+//获取指定年月日的星期数
+public static function  GetWeekDay($year,$month,$day)
+{
+	$strDay = $year . "/" .$month ."/" .$day;
+	$mydate = strtotime($strDay);
+	//echo $strDay;
+	return ConstUtil::GetWeekDay2($mydate);
+}
+public static function GetWeekDay2($strDay)
+{
+	return date('w',$strDay);
+}
+}

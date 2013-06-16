@@ -1,0 +1,23 @@
+﻿@charset "utf-8";
+/**
+ Written by:wanghuan
+ Created Date: 2013-05-14
+ Copyright：2005-2013 www.techholder.com Inc. All rights reserved.
+**/
+/*Initialization style*/
+
+.travel_banner dl,dt,dd{list-style:none;float:left;}
+.travel_banner li
+{
+	list-style:none;
+	float:left;
+}
+.travel_banner ul
+{
+	list-style:none;
+	float:left;
+}
+.travel_banner p,ul,ol,li{margin:0;padding:0;}
+
+.thRelative{position:relative;top:0;left:0;}
+

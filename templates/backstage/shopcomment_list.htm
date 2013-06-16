@@ -1,0 +1,201 @@
+{include file=pageheader.htm}
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="ttbb2">
+
+     <tr  id="person" > 
+ 
+         <td width="7%" align="left"><strong>店铺名称</strong></td>
+    <td width="15%" align="left">{$data.shopname}</td>
+    
+        <td width="7%" align="left"><strong>联系电话</strong></td>
+    <td width="15%" align="left">{$data.telephone}</td>
+    
+         <td width="7%" align="left"><strong>地址</strong></td>
+    <td width="15%" align="left">{$data.address}</td>
+    
+    <td width="7%" align="left"><strong>公交线</strong></td>
+    <td width="15%" align="left">{$data.busline}</td>
+    
+   
+     </tr>
+      <tr  id="person" > 
+ 
+         <td width="7%" align="left" valign="top"><strong>简介</strong></td>
+    <td width="15%" align="left"><textarea rows="10" cols="15">{$data.summary}</textarea></td>
+    
+        <td width="7%" align="left" valign="top"><strong>照片</strong></td>
+    <td width="15%" align="left" colspan="5">{if $data.shoppicture neq ''}<img src="./uploadfiles/shop/{$data.shoppicture}" border="0" height="160" width="280"  />{/if}</td>
+     </tr>
+  </table>
+
+
+<p><span style="font-weight:40px"><strong>【——评论列表——】</strong></span></p>
+
+
+
+<form enctype="multipart/form-data" action="shopadmin_shopcomment.php?act=ini&id={$data.ID}&f={$from}" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+     <tr  id="person" > 
+ 
+         <td width="7%" align="left"><strong>评论者</strong></td>
+    <td width="15%" align="left"><input name="query[username]" type="text" id="username"  class="txt200"  value="{$query.username}"/></td>
+    
+        <td width="7%" align="left"><strong>总体评价</strong></td>
+    <td width="8%" align="left">
+     <select name="query[commentrank]" id="commentrank"    >
+                <option value="" >请选择</option>
+                {foreach from=$evaresult item=item key=index}
+                <option value="{$index}" {if $query.commentrank eq $index }selected {/if}>{$item}</option>
+                {/foreach}
+      </select>
+   </td>
+    
+         <td width="7%" align="left"><strong>服务</strong></td>
+    <td width="8%" align="left"> <select name="query[service]" id="service"    >
+                <option value="" >请选择</option>
+                {foreach from=$evaresult item=item key=index}
+                <option value="{$index}" {if $querya.service eq $index }selected {/if}>{$item}</option>
+                {/foreach}
+      </select></td>
+      
+       <td width="7%" align="left"><strong>质量</strong></td>
+    <td width="8%" align="left"> <select name="query[taste]" id="taste"    >
+                <option value="" >请选择</option>
+                {foreach from=$evaresult item=item key=index}
+                <option value="{$index}" {if $query.taste eq $index }selected {/if}>{$item}</option>
+                {/foreach}
+      </select></td>
+     
+      
+       <td width="7%" align="left"><strong>环境</strong></td>
+    <td width="8%" align="left"> <select name="query[environment]" id="environment"    >
+                <option value="" >请选择</option>
+                {foreach from=$evaresult item=item key=index}
+                <option value="{$index}" {if $query.environment eq $index }selected {/if}>{$item}</option>
+                {/foreach}
+      </select></td>
+     
+     <td width="7%" align="left"><strong>性价比</strong></td>
+    <td width="8%" align="left"> <select name="query[costperformance]" id="costperformance"    >
+                <option value="" >请选择</option>
+                {foreach from=$evaresult item=item key=index}
+                <option value="{$index}" {if $query.costperformance eq $index }selected {/if}>{$item}</option>
+                {/foreach}
+      </select></td>
+</tr>
+      <tr>
+
+
+    
+    
+    
+    
+    <td width="10%" align="left"><strong>评论时间</strong></td>
+    <td width="15%" align="left"  colspan="3">
+    <input name="query[commenttime_from]" type="text" id="keywords"  class="Wdate"  onClick="WdatePicker();"  value="{$query.commenttime_from}"/>
+    ~
+     <input name="query[commenttime_to]" type="text" id="keywords"  class="Wdate"  onClick="WdatePicker();"  value="{$query.commenttime_to}"/>
+    </td>
+    
+    
+      <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td align="right" colspan="7">&nbsp;</td>
+     </tr>
+     
+     
+    
+     
+
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th >评论者</th>
+    
+    <th>总体评价</th>
+    <th>服务</th>
+    <th>质量</th>
+    <th>环境</th>
+    
+    <th > 性价比</th>
+     <th > 评论时间</th>
+      <th  >所得校币</th>
+       <th  >内容</th>
+       <th >显示</th>
+   
+   
+
+   {if $from eq 'A'}
+   	
+    <th>操作</th>
+    {/if}
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" {if $from eq 'A'}  colspan="11" {else}  colspan="10" {/if}>系统还没有关于[<strong>{$data.shopname}</strong>]店铺的评论！</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+    <td  align="center">{$item.username}</td>
+    <td  align="center">{$evaresult[$item.commentrank]}</td>
+    <td  align="center">{$evaresult[$item.service]}</td>
+    <td  align="center">{$evaresult[$item.taste]}</td>
+    <td  align="center">{$evaresult[$item.environment]}</td>
+    <td  align="center">{$evaresult[$item.costperformance]}</td>
+    <td  align="center">{$item.commenttime}</td>
+    <td  align="center">{$item.schoolnum}</td>
+    <td  align="center">{$item.content}</td>
+    
+
+    <td  align="center" >{if $item.isshow  eq '1'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  />{/if}</td>
+ 
+     {if $from eq 'A'}
+    <td  align="center">
+
+     <a href="shopadmin_shopcomment.php?act=del&id={$item.ID}&shopid={$data.ID}&f={$from}">删除</a>
+     | <a href="shopadmin_shopcomment.php?act=visibal&id={$item.ID}&s={$item.isshow}&shopid={$data.ID}&f={$from}">{if $item.isshow  eq '1'  }隐藏{else}显示 {/if}</a>
+
+    </td>
+    {/if}
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"   {if $from eq 'A'}  colspan="11" {else}  colspan="10" {/if}>      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+<script src="./templates/scripts/backstage/business.js" type="text/javascript"></script>
+
+{include file=pagefooter.htm}
+
+

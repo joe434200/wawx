@@ -1,0 +1,40 @@
+{include file=pageheader.htm}
+<link href="./templates/css/backstage/liststyle.css" rel="stylesheet" type="text/css" />
+<div class="blank10"></div>
+<div class="block  blue_s">
+<div class="AreaL850">
+
+<!--好友列表-->
+
+<div class="box_lt clearfix">
+  <div class="space_show_friend clearfix">
+    <ul>
+    {foreach from=$list item=item key=key}
+	<li>
+	<p><img src="./uploadfiles/activity/{$item.realname}" /></p>
+	<p>{$item.oldname}<a href="#" id="h_{$item.ID}" onclick="javascript:shieldActPhoto({$item.ID})">&nbsp;<span id="s_{$item.ID}">{if $item.shieldflg eq "" || $item.shieldflg eq "0"}屏蔽{else}取消屏蔽{/if}</span></a></p>
+	</li>
+	{/foreach}
+	</ul>
+  </div>
+
+  <div class="album_page">
+  <script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script></div>
+
+  <div class="blank10"></div>
+
+  
+
+</div>
+
+<!--好友列表 结束-->
+
+</div>
+</div>
+<script src="./templates/scripts/backstage/actphoto.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

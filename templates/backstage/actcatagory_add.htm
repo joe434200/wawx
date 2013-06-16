@@ -1,0 +1,57 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form action="admin_actcatagory.php?act=submit" method="post" name="theForm"  ">
+<input name="why" type="hidden" value=""  id=""/>
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">活动分类名称</td>
+      <td>
+        <input name="data[name]" type="text" id="actname" size="22" value='{$data.name}'  /><span class="require-field">*</span>
+      </td>
+    </tr>
+
+    
+    <tr>
+      <td  class="label" width="20%">级别</td>
+      <td  width="80%">
+        <input name="level" type="radio" id="level1" size="22" value='1'  {if $data eq '' || $data.parentid eq '99999' || $data.parentid eq ""}checked {/if}onclick="javascript:hiddenparent();"/>一级 <input name="level" type="radio" id="level2" size="22" value='2'  {if $data.parentid neq '99999' and $data.parentid neq '' }checked {/if} onclick="javascript:hiddenparent();"/>二级
+        
+      </td>
+    </tr>
+     
+    <tr  id="selectparent" {if $data.parentid eq '99999' || $data.parentid eq '' }style="display:none"{/if}>
+      <td  class="label">上级分类</td>
+      <td>
+        <select name="data[parentid]" id="parentid"  >
+                {foreach from=$lev1list item=item key=index}
+                <option value="{$item.ID}" {if $data.parentid eq $item.ID}selected {/if}>{$item.name}</option>
+                {/foreach}
+      </select>
+      </td>
+    </tr>
+    
+    <tr>
+        <td class="label">备注</td>
+        <td><textarea name="data[remark]" cols="50" rows="5">{$data.remark}</textarea></td>
+      </tr>
+      
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+       <input name="id" type="hidden" value="{$data.ID}"  id="id"/>
+        <input type="button" value=" 确定 " class="button" onclick="javascript:checksubmit();"/>
+        <input type="reset" value=" 重置 " class="button" />
+       
+      </td>
+      
+    </tr>
+
+    
+ </table>
+ 
+{include file=warning.tpl}
+</form>
+</div>
+<script src="./templates/scripts/backstage/actcatagory.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

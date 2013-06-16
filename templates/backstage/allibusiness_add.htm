@@ -1,0 +1,43 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form action="admin_allibusiness.php?act=submit" method="post" name="theForm"  ">
+<input name="why" type="hidden" value=""  id=""/>
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">商家名称</td>
+      <td>
+        <input name="data[name]" type="text" id="bsiname" size="22" value='{$data.name}'  /><span class="require-field">*</span>
+      </td>
+    </tr>
+    
+     <tr>
+      <td  class="label">主页(URL)</td>
+      <td>
+        <input name="data[linkurl]" type="text" id="linkurl" size="22" value='{$data.linkurl}'  /><span class="require-field">*</span>
+      </td>
+    </tr>
+    
+
+    
+  
+      
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+       <input name="id" type="hidden" value="{$data.ID}"  id="id"/>
+        <input type="button" value=" 确定 " class="button" onclick="javascript:checksubmit();"/>
+        <input type="reset" value=" 重置 " class="button" />
+       
+      </td>
+      
+    </tr>
+
+    
+ </table>
+ 
+{include file=warning.tpl}
+</form>
+</div>
+<script src="./templates/scripts/backstage/allibusiness.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

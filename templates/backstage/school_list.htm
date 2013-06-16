@@ -1,0 +1,73 @@
+{include file=pageheader.htm}
+
+
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>学校名称</th>
+   <th>所在国家</th>
+    <th>所在省份/直辖市</th>
+      <th>所在市</th>
+      <th>所在区/县</th>
+      <th>学校地址</th>
+      <th>学校介绍</th>
+    <th>操作</th>
+  </tr>
+  {if $schoollist|@count eq 0}
+      <tr><td class="no-records" colspan="10">您还没有添加任何学校</td></tr>
+  {else}
+ {foreach from=$schoollist item=item key=key}
+  <tr>
+    <td align="center">{$item.schoolname}</td>
+    <td  align="center">{$item.countryname}</td>
+    <td  align="center">{$item.provincename}</td>
+     <td  align="center">{$item.cityname}</td>
+    <td  align="center">{$item.skirtname}</td>
+    <td  align="center">{$item.schooladdr}</td>
+     <td  align="center">{$item.introduction }</td>
+    
+    <td  align="center">
+    <a href="admin_school.php?act=edit&id={$item.ID}" title="编辑"><img src="./templates/images/backstage/icon_edit.gif" border="0" height="16" width="16" /></a>
+      
+      <a href="javascript:confirm_redirect('您确定要删除该该学校吗？', 'admin_shcool.php?act=del&id={$item.ID}')" title="删除"><img src="./templates/images/backstage/icon_drop.gif" border="0" height="16" width="16" /></a>
+   
+    </td>
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"  colspan="10">      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+
+
+{include file=pagefooter.htm}
+
+

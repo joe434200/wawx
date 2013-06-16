@@ -1,0 +1,71 @@
+{include file=pageheader.htm}
+<div class="main-div">
+
+
+  <table width="100%" id="general-table">
+  
+    <tr  id="selectparent" >
+      <td  class="label">位置</td>
+      <td>
+      {$adspos[$data.position].text}
+    
+      </td>
+    </tr>
+    
+      <tr>
+      <td  class="label">广告图片</td>
+      <td>
+        
+          {if $data.realname}
+         <div><img src="./uploadfiles/adver/{$data.realname}" border="0" height="{$adspos[$data.position].height}" width="{$adspos[$data.position].width}" />
+        </div>
+        {/if}
+      </td>
+    </tr>
+    
+    
+     <tr>
+      <td  class="label">图片URL</td>
+      <td>
+      {$data.linkid}
+      </td>
+    </tr>
+    
+     <tr>
+      <td  class="label">开始时间</td>
+      <td>
+    {$data.starttime|date_format:"%Y-%m-%d"}
+         </td>
+    </tr>
+    
+     <tr>
+      <td  class="label">有效时间(天)</td>
+      <td>
+        {$data.validtime}
+      </td>
+    </tr>
+    
+    <tr>
+        <td class="label">描述</td>
+        <td><textarea name="data[advertdesc]" cols="50" rows="5">{$data.advertdesc}</textarea></td>
+      </tr>
+      
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+
+       <input type="button" value="返回" class="button" onclick="location='admin_ads.php'"/>
+  
+       
+      </td>
+      
+    </tr>
+
+    
+ </table>
+ 
+
+</div>
+
+{include file=pagefooter.htm}

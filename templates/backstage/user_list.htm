@@ -1,0 +1,155 @@
+{include file=pageheader.htm}
+
+<form enctype="multipart/form-data" action="admin_user.php?act=list" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  
+   
+     
+     </tr>
+     
+     <tr  id="person" > 
+      <td width="10%" align="left"><strong>真实名称</strong></td>
+    <td width="15%" align="left"><input name="query[realname]" type="text" id="realname"  class="txt200"  value="{$query.realname}"/></td>
+     
+     
+         <td width="10%" align="left"><strong>昵称</strong></td>
+    <td width="15%" align="left"><input name="query[nickname]" type="text" id="nickname"  class="txt200"  value="{$query.nickname}"/></td>
+    
+        <td width="10%" align="left"><strong>所在学校</strong></td>
+    <td width="15%" align="left"><input name="query[schoolname]" type="text" id="schoolname"  class="txt200"  value="{$query.schoolname}"/></td>
+      <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td align="right"></td>
+     </tr>
+     
+     
+    
+     
+ 
+     
+   
+     
+
+    
+   
+
+  </tr>
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+
+   
+
+    
+    <th>昵称</th>
+
+    <th> 真实姓名</th>
+     <th>管理员</th>
+    <th>出生年月日</th>
+    <th>居住地</th>
+    <th>所在学校</th>
+    <th>院系</th>
+    <th>入学时间</th>
+    
+      <th>校卡编号</th>
+    <th>校卡有效期(From)</th>
+    <th>校卡有效期(To)</th>
+    
+     <th>优秀圈主</th>
+     
+      <th>圈子达人</th>
+   
+
+   
+   	
+    <th>操作</th>
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" colspan="19">系统还没有用户</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+   
+    
+     <td  align="center">{$item.nickname}</td>
+    <td  align="center">{$item.realname}</td>
+    <td  align="center">{if $item.adminflg eq '1'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{/if}</td>
+    <td  align="center">{$item.birthdate|date_format:"%Y/%m/%d"}</td>
+    <td  align="center">{$item.residence}</td>
+     <td  align="center">{$item.schoolname}</td>
+    <td  align="center">{$item.department }</td>
+     <td  align="center">{$item.schooltime|date_format:"%Y/%m/%d" }</td>
+     
+       <td  align="center">{$item.cardnum}</td>
+    <td  align="center">{$item.cardvaliddatefrom|date_format:"%Y/%m/%d"  }</td>
+     <td  align="center">{$item.cardvaliddateto|date_format:"%Y/%m/%d" }</td>
+    
+    
+    
+    
+    
+    
+    <td  align="center">{if $item.excelringflg eq '1'} <img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  /> {/if}</td>
+    <td  align="center">{if $item.superringflg eq '1'} <img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  /> {/if}</td>
+    
+    
+   
+    
+   
+
+    
+    <td  align="center">
+     
+   
+     <a href="admin_user.php?act=edit&id={$item.ID}">编辑</a>
+      |
+     <a href="admin_user.php?act=excel&id={$item.ID}">优秀圈主设置</a>
+      |
+     <a href="admin_user.php?act=super&id={$item.ID}">圈子达人设置</a>
+      |<a href="admin_user.php?act=show&id={$item.ID}">查看</a>
+     |  <a href="admin_user.php?act=del&id={$item.ID}">删除</a>
+    </td>
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"  colspan="19">      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+<script src="./templates/scripts/backstage/user.js" type="text/javascript"></script>
+
+{include file=pagefooter.htm}
+
+

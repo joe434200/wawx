@@ -1,0 +1,100 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form id="theForm" action="shopadmin_business.php?act=submit" method="post" name="theForm" enctype="multipart/form-data">
+  <table width="100%" id="general-table" class="ttbb2">
+    <tr>
+      <td  class="label">E-Mail</td>
+      <td ><input name="data[email]" type="text" id=email size="22"  value='{$data.email}'  disabled/></td>
+    </tr>
+     <tr>
+      <td  class="label">商家名称</td>
+
+      <td><input name="data[shopname]" type="text" id=shopname size="22"  value='{$data.shopname}' disabled/><span class="require-field">*</span></td>
+    </tr>
+     <tr>
+      <td  class="label">商家头像(Logo)</td>
+      <td>
+       <input name="myphoto" type="file" id="myphoto"  class="txt200" /><span class="require-field">*</span>
+      </td>
+    </tr>
+    
+    
+    
+      <tr>
+      <td  class="label"></td>
+      <td>
+     
+       {if $data.photo neq ''} <img src="./uploadfiles/register/{$data.photo}" border="0" height="90" width="90"  />{/if}
+      </td>
+    </tr>
+     <tr>
+      <td  class="label">营业执照</td>
+      <td>
+       <input name="mylicence" type="file" id="mylicence"  class="txt200" /><span class="require-field">*</span>
+      </td>
+    </tr>
+      <tr>
+      <td  class="label"></td>
+      <td>
+     
+    <a href="shopadmin_business.php?act=download&id={$data.ID}">  {$data.busilicence }</a>
+      </td>
+    </tr>
+   
+    
+    
+     <tr>
+      <td  class="label">经营范围</td>
+      <td>
+       <textarea name="data[scope]" cols="50" rows="5">{$data.scope}</textarea>
+     </td>
+     
+    </tr>
+    
+      <tr>
+     
+      <td  class="label">门店地址</td>
+      <td>
+        <textarea name="data[storeaddr]" cols="50" rows="5">{$data.storeaddr} </textarea>
+      </td>
+    </tr>
+    
+    
+    
+     <tr >
+      <td  class="label">负责人</td>
+      <td>
+         <input name="data[chargeperson]" type="text" id=shopname size="22"  value='{$data.chargeperson}' />
+      </td>
+     
+    </tr>
+    <tr >
+     
+       <td  class="label">联系电话</td>
+      <td>
+        <input name="data[contactphone]" type="text" id=shopname size="22"  value='{$data.contactphone}' />
+      </td>
+    </tr>
+    
+      
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+         <input type="hidden" value="{$data.ID}" id="id" name="id"/>
+        <input type="button" value=" 返回 " class="button"  onclick="javascript:history.go(-1);"/>
+     
+        <input type="submit" value=" 确定 " class="button" />
+       
+       
+      </td>
+      
+    </tr>
+    </tbody>
+    
+ </table>
+ </form>
+
+
+</div>
+<script src="./templates/scripts/backstage/act.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

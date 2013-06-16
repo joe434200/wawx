@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发货单</title>
+<link href="./templates/css/workflow.css" rel="stylesheet" type="text/css" />
+
+{literal}
+<style type="text/css">
+body{  padding:20px 0;}
+.print{ width:600px; margin: 0 auto;}
+</style>
+<script language="javascript">
+function printdiv(divid)
+{
+	var headerstr = "<html><head><title></title></head><body>";
+	var footerstr = "</body></html>"; 
+	var newstr = document.getElementById(divid).innerHTML;
+	var oldstr = document.body.innerHTML;
+	document.body.innerHTML = headerstr + newstr + footerstr;
+	
+	window.print();
+	document.body.innerHTML = oldstr;
+	return false;
+}
+</script>
+{/literal}
+
+</head>
+<body>
+<div class="print" id="print">
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="ttbb12">
+  <tr>
+    <td width="7%" rowspan="10" align="center">
+   -<br />
+      我<br />
+      爱<br />
+      我<br />
+      校<br /><br />
+      发<br />
+      货<br />
+      单</td>
+    <td colspan="2" width="33%" height="40">商家名称：XXX</td>
+    <td colspan="2" width="30%" height="40">商家账号：XXX</td>
+    <td colspan="2" width="30%" height="40">商家电话：XXX</td>
+  </tr>
+  <tr>
+    <td colspan="2" height="40">买家名称：XXX</td>
+    <td colspan="2" height="40">买家账号：XXX</td>
+    <td colspan="2" height="40">买家电话：XXX</td>
+    </tr>
+	<tr>
+    <td colspan="2" height="40">订单号：XXX</td>
+    <td colspan="2" height="40">下单时间：XXX</td>
+    <td colspan="2" height="40">订单总价：XXX</td>
+    </tr>
+  <tr>
+    <td height="70" align="left" colspan="5">商品列表</td>
+  </tr>
+  
+  <tr>
+    <td colspan="2">商品名称</td>
+    <td >数量</td>
+    <td >单价</td>
+    <td >总价</td>
+  </tr>
+  
+  <tr>
+    <td colspan="2">i9300</td>
+    <td >1</td>
+    <td >3800</td>
+    <td >3800</td>
+  </tr>
+  
+
+    
+</table>
+<br/>
+</div>
+    <div class="work_foot_an top20 bottom20" >
+    <input name="input" type="button"   value="打印" onclick="javascript:printdiv('print');"/>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="input" type="button"   value="关闭" onclick="javascript:window.close();"/>
+    </div>
+
+</body>
+</html>
+
+

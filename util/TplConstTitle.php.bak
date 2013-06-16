@@ -1,0 +1,164 @@
+<?php
+//require_once("Const.php");
+//require_once("StringEncrypt.php");
+final class TplConstTitle
+{
+	static $system_name = 'エステー産業株式会社';//systemname
+	static $subsystem_name_01 = '稟議決裁システム';//subsystem name
+	static $subsystem_name_02 = '顧客管理システム';//subsystem name
+
+	static $pg_user_01 = 'ユーザ一覧';
+	static $pg_user_02 = 'ユーザ登録&#8226;新規';
+	static $pg_user_03 = 'ユーザ登録&#8226;編集';//relate to user pages
+	static $pg_user_04 = 'ユーザ兼務追加';//relate to user pages
+	static $pg_user_05 = 'パスワード管理';//relate to user pages
+	static $pg_user_06 = 'パスワード変更';//relate to user pages
+
+	static $pg_group_01 = '組織一覧';
+	static $pg_group_02 = '組織登録&#8226;新規';
+	static $pg_group_03 = '組織登録&#8226;編集';//relate to group pages
+
+	static $pg_lingin_rote_01 = "稟議経路登録&#8226;編集";
+	static $pg_lingin_rote_02 = "稟議経路登録&#8226;新規";
+	static $pg_lingin_rote_03 = "稟議経路登録&#8226;編集";
+
+	static $pg_lingin_01 = '稟議登録&#8226;編集';
+	static $pg_lingin_02 = '稟議登録&#8226;新規';
+	static $pg_lingin_03 = '稟議詳細';
+	static $pg_lingin_04 = '未決裁稟議詳細';
+	static $pg_lingin_05 = '未決裁稟議リスト表示';
+	static $pg_lingin_06 = '稟議一覧(全体)';
+	static $pg_lingin_07 = '稟議履歴閲覧';//relate to 稟議 pages
+
+	static $pg_notice_01 = '告知登録&#8226;編集';
+	static $pg_notice_02 = '告知登録&#8226;新規';
+	static $pg_notice_03 = '告知詳細';//relate to 告知 pages
+	static $pg_notice_04 = '告知一覧(過去分)';//relate to 告知 pages
+
+	static $pg_back_01 = '回覽登録&#8226;編集 ';
+	static $pg_back_02 = '回覽登録&#8226;新規';
+	static $pg_back_03 = '回覽詳細';//relate to 回覽 pages
+
+	static $pg_qa_01 = 'Q&A登録&#8226;編集';
+	static $pg_qa_02 = 'Q&A登録&#8226;詳細';
+	static $pg_qa_03 = 'Q&A登録&#8226;新規';//relate to QApages
+	static $pg_qa_04 = 'Q&A登録&#8226;編集';
+
+	static $pg_manual_01 = 'オンラインマニュアル (プリンタ)登録&#8226;編集';
+	static $pg_manual_02 = 'オンラインマニュアル (プリンタ)登録&#8226;新規';
+	static $pg_manual_03 = 'オンラインマニュアル (プリンタ)登録&#8226;詳細';//relate to manual pages
+
+	static $pg_manual_04 = 'オンラインマニュアル (インクカートリッジ)登録&#8226;編集';
+	static $pg_manual_05 = 'オンラインマニュアル (インクカートリッジ)登録&#8226;新規';
+	static $pg_manual_06 = 'オンラインマニュアル (インクカートリッジ)登録&#8226;詳細';//relate to manual pages
+
+
+	static$pg_master_maker_01 = 'メーカー登録&#8226;編集';
+	static$pg_master_maker_02 = 'メーカー登録&#8226;新規';
+	static$pg_master_maker_03 = 'メーカー登録&#8226;編集';
+
+	static$pg_master_brand_01 = 'エステー産業ブランド登録&#8226;編集';
+	static$pg_master_brand_02 = 'エステー産業ブランド登録&#8226;新規';
+	static$pg_master_brand_03 = 'エステー産業ブランド登録&#8226;編集';
+
+	static$pg_master_stink_01 = 'エステー産業インク登録&#8226;編集';
+	static$pg_master_stink_02 = 'エステー産業インク登録&#8226;新規';
+	static$pg_master_stink_03 = 'エステー産業インク登録&#8226;編集';
+	static$pg_master_stink_04 = 'エステー産業インク登録&#8226;詳細';//メーカー別インク
+	static$pg_master_stink_05 = 'インク詳細';//メーカー別インク
+	static$pg_master_stink_06 = '純正インクリスト';//メーカー別インク
+
+
+
+
+	static$pg_master_printer_01 = 'プリンタ登録&#8226;編集';
+	static$pg_master_printer_02 = 'プリンタ登録&#8226;新規';
+	static$pg_master_printer_03 = 'プリンタ登録&#8226;編集';
+	static$pg_master_printer_04 = 'プリンタ登録&#8226;詳細';
+
+	static$pg_master_pureink_01 = 'メーカー別インク登録&#8226;編集';
+	static$pg_master_pureink_02 = 'メーカー別インク登録&#8226;新規';
+	static$pg_master_pureink_03 = 'メーカー別インク登録&#8226;編集';
+	static$pg_master_pureink_04 = 'メーカー別インク登録&#8226;詳細';//メーカー別インク
+
+	static $pg_master_defect_01="製品不良コード登録&#8226;編集";
+	static $pg_master_defect_02="製品不良コード登録&#8226;新規";
+	static $pg_master_defect_03="製品不良コード登録&#8226;編集";
+
+	static $pg_support_info_01="顧客サポート情報";
+
+	static $out_stock_popup = "出庫指示";
+
+	//new add by baiyao
+	static $pg_master_timezone_01 = '時間帯登録&#8226;編集';
+	static $pg_master_timezone_02 = '時間帯登録&#8226;新規';
+	static $pg_master_timezone_03 = '時間帯登録&#8226;編集';
+
+	static $pg_master_sender_01 = '配送業者登録&#8226;編集';
+	static $pg_master_sender_02 = '配送業者登録&#8226;新規';
+	static $pg_master_sender_03 = '配送業者登録&#8226;編集';
+
+
+	static $pg_master_zipcode_01 = '日本郵便CSV取込';
+
+	static $pg_master_stockprinter_01 = '在庫一覧表（プリンタ）';
+	static $pg_master_stockprinter_02 = '在庫一覧表（プリンタ）備考';
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------WorkFlow网页  标题命名-------------------
+	//必须以Sys_打头
+	static $Sys_Home="HOME";
+	static $Sys_Com = "会社";
+
+	//内部名称命名
+	//必须以Pg_打头+机能描述名+机能子名+番号【2位表示】
+	static $Pg_User_New = 'ユーザ登録&#8226;新規'; //新規
+	static $Pg_User_Edit = 'ユーザ登録&#8226;新規';//編集
+	static $Pg_User_Show = 'ユーザ登録&#8226;新規';//表示
+	static $Pg_User_List = 'ユーザ登録&#8226;新規';//列表
+	static $Pg_User_Search = 'ユーザ登録&#8226;新規';//查询
+	static $Pg_User_Other = 'ユーザ登録&#8226;新規';//其他，其他可以使用编码了
+
+	//-----------------------------------------------------------------------------
+
+
+
+
+
+
+	public static function setTplTitle($smarty,  $system,$subsystem,$seqNo=null )
+    {
+    	$showtitle = "Pg_" . $system . "_" . $subsystem ;
+    	if (!empty($seqNo))
+    	{
+    		$showtitle = $showtitle. "_" . $seqNo;
+    	}
+
+
+
+
+
+    	$smarty->assign("tplTitle",self::$$showtitle);
+
+    }
+
+    public static function setPageTitle($smarty,$pagecode)
+    {
+    	$smarty->assign("pageTitle", self::getTitle($pagecode));
+    }
+
+    public static function getTitle($pagecode)
+    {
+    	 $key = "Sys_".$pagecode;
+    	  return self::$ $key;
+    }
+}

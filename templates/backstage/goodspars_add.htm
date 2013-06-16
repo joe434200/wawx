@@ -1,0 +1,48 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form action="admin_goodspars.php?act=submit" method="post" name="theForm"  ">
+<input name="why" type="hidden" value=""  id=""/>
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">项目名称</td>
+      <td>
+        <input name="data[optionname]" type="text" id="optionname" size="22" value='{$data.optionname}'  /><span class="require-field">*</span>
+      </td>
+    </tr>
+
+    
+   
+     
+    <tr  id="selectparent" >
+      <td  class="label">上级分类</td>
+      <td>
+        <select name="data[parentid]" id="parentid"  >
+        <option value="99999" >请选择</option>
+                {foreach from=$lev1list item=item key=index}
+                <option value="{$item.ID}" {if $data.parentid eq $item.ID}selected {/if}>{$item.optionname}</option>
+                {/foreach}
+      </select>
+      </td>
+    </tr>
+    
+  
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+       <input name="id" type="hidden" value="{$data.ID}"  id="id"/>
+        <input type="button" value=" 确定 " class="button" onclick="javascript:checksubmit();"/>
+        <input type="reset" value=" 重置 " class="button" />
+       
+      </td>
+      
+    </tr>
+
+    
+ </table>
+ 
+{include file=warning.tpl}
+</form>
+</div>
+<script src="./templates/scripts/backstage/goodspars.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

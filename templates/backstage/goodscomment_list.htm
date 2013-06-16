@@ -1,0 +1,165 @@
+{include file=pageheader.htm}
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="ttbb2">
+
+     <tr  id="person" > 
+ 
+         <td width="7%" align="left"><strong>商品名称</strong></td>
+    <td width="15%" align="left">{$data.goodsname}</td>
+    
+        <td width="7%" align="left"><strong>市场价格</strong></td>
+    <td width="15%" align="left">{$data.marketprice}</td>
+    
+         <td width="7%" align="left"><strong>本店售价</strong></td>
+    <td width="15%" align="left">{$data.shopprice}</td>
+    
+    <td width="7%" align="left"><strong>商品关键词</strong></td>
+    <td width="15%" align="left">{$data.keywords}</td>
+    
+   
+     </tr>
+      <tr  id="person" > 
+ 
+         <td width="7%" align="left" valign="top"><strong>详细描述</strong></td>
+    <td width="15%" align="left" colspan="7"><textarea rows="3" cols="125">{$data.goodsdesc}</textarea></td>
+    
+      </tr>
+  </table>
+
+
+<p><span style="font-weight:40px"><strong>【——评论列表——】</strong></span></p>
+
+
+
+<form enctype="multipart/form-data" action="shopadmin_shopcomment.php?act=ini&id={$data.ID}&f={$from}" method="post" id="haha" name="haha">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+     <tr  id="person" > 
+ 
+         <td width="7%" align="left"><strong>评论者</strong></td>
+    <td width="15%" align="left"><input name="query[username]" type="text" id="username"  class="txt200"  value="{$query.username}"/></td>
+    
+        <td width="7%" align="left">&nbsp;</td>
+    <td width="8%" align="left">
+   
+   </td>
+    
+         <td width="7%" align="left"><strong></strong></td>
+    <td width="8%" align="left"> &nbsp;</td>
+      
+       <td width="7%" align="left"><strong></strong></td>
+    <td width="8%" align="left"> &nbsp;</td>
+     
+      
+       <td width="7%" align="left"><strong></strong></td>
+    <td width="8%" align="left">  &nbsp;</td>
+     
+     <td width="7%" align="left"><strong></strong></td>
+    <td width="8%" align="left">  &nbsp;</td>
+</tr>
+      <tr>
+
+
+    
+    
+    
+    
+    <td width="10%" align="left"><strong>评论时间</strong></td>
+    <td width="15%" align="left"  colspan="3">
+    <input name="query[commenttime_from]" type="text" id="keywords"  class="Wdate"  onClick="WdatePicker();"  value="{$query.commenttime_from}"/>
+    ~
+     <input name="query[commenttime_to]" type="text" id="keywords"  class="Wdate"  onClick="WdatePicker();"  value="{$query.commenttime_to}"/>
+    </td>
+    
+    
+      <td  align="left" width="10%"><input type="submit"  class="button" value="查找"  /></td>
+    <td align="right" colspan="7">&nbsp;</td>
+     </tr>
+     
+     
+    
+     
+
+  </table>
+ {include file=warning.tpl}
+</form>
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th >评论者</th>
+    <th > 评论IP地址</th>
+     <th > 评论时间</th>
+      <th  >所得校币</th>
+       <th  >内容</th>
+       <th >显示</th>
+   
+   
+
+   {if $from eq 'A'}
+   	
+    <th>操作</th>
+    {/if}
+  </tr>
+  {if $list|@count eq 0}
+      <tr><td class="no-records" {if $from eq 'A'}  colspan="8" {else}  colspan="7" {/if}>系统还没有关于[<strong>{$data.goodsname}</strong>]商品的评论！</td></tr>
+  {else}
+ {foreach from=$list item=item key=key}
+  <tr>
+    <td  align="center">{$item.username}</td>
+    <td  align="center">{$item.userip}</td>
+  
+    <td  align="center">{$item.commenttime}</td>
+    <td  align="center">{$item.schoolnum}</td>
+    <td  align="center">{$item.content}</td>
+    
+
+    <td  align="center" >{if $item.isshow  eq '1'}<img src="./templates/images/backstage/yes.gif" border="0" height="16" width="16"  />{else}<img src="./templates/images/backstage/no.gif" border="0" height="16" width="16"  />{/if}</td>
+ 
+     {if $from eq 'A'}
+    <td  align="center">
+
+     <a href="shopadmin_goodscomment.php?act=del&id={$item.ID}&shopid={$data.ID}&f={$from}">删除</a>
+     | <a href="shopadmin_goodscomment.php?act=visibal&id={$item.ID}&s={$item.isshow}&shopid={$data.ID}&f={$from}">{if $item.isshow  eq '1'  }隐藏{else}显示 {/if}</a>
+
+    </td>
+    {/if}
+   
+         
+  </tr>
+  {/foreach}
+  {/if}
+      
+      
+      
+      
+      
+    <tr>
+    <td align="right"   {if $from eq 'A'}  colspan="8" {else}  colspan="7" {/if}>      
+     
+     
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+      
+      
+</td>
+  </tr>
+</table>
+
+</div>
+<!-- end ad_position list -->
+<script src="./templates/scripts/backstage/business.js" type="text/javascript"></script>
+
+{include file=pagefooter.htm}
+
+

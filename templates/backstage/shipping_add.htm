@@ -1,0 +1,72 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form action="admin_shipping.php?act=submit" method="post" name="theForm"  ">
+<input name="why" type="hidden" value=""  id=""/>
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">配送代码</td>
+      <td>
+        <input name="data[shippingcode]" type="text" id="shippingcode" size="22" value='{$data.shippingcode}'  /><span class="require-field">*</span>
+      </td>
+    </tr>
+     <tr>
+      <td  class="label">配送名称</td>
+      <td>
+        <input name="data[shippingname]" type="text" id="shippingname" size="22" value='{$data.shippingname}'  /><span class="require-field">*</span>
+      </td>
+    </tr>
+     <tr>
+      <td  class="label">保价费用</td>
+      <td>
+        <input name="data[insure]" type="text" id="insure" size="22" value='{$data.insure}'  />￥<span class="require-field">*</span>
+      </td>
+    </tr>
+    <tr>
+      <td  class="label">免费额度</td>
+      <td>
+        <input name="data[freefee]" type="text" id="insure" size="22" value='{$data.freefee}'  />￥<span class="require-field">*</span>
+      </td>
+    </tr>
+    <tr>
+      <td  class="label">配送费用</td>
+      <td>
+        <input name="data[fee]" type="text" id="insure" size="22" value='{$data.fee}'  />￥<span class="require-field">*</span>
+      </td>
+    </tr>
+     <tr>
+      <td  class="label">配送信息</td>
+      <td>
+        <textarea name="data[shippinginfo]" cols="50" rows="5">{$data.shippinginfo}</textarea>
+      </td>
+    </tr>
+
+
+
+    
+   
+    
+    <tr>
+        <td class="label">配送描述</td>
+        <td><textarea name="data[shippingdesc]" cols="50" rows="5">{$data.shippingdesc}</textarea></td>
+      </tr>
+      
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+       <input name="id" type="hidden" value="{$data.ID}"  id="id"/>
+        <input type="button" value=" 确定 " class="button" onclick="javascript:checksubmit();"/>
+        <input type="reset" value=" 重置 " class="button" />
+       
+      </td>
+      
+    </tr>
+
+    
+ </table>
+ 
+{include file=warning.tpl}
+</form>
+</div>
+<script src="./templates/scripts/backstage/shipping.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

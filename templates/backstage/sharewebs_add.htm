@@ -1,0 +1,59 @@
+{include file=pageheader.htm}
+<div class="main-div">
+<form action="admin_sharewebs.php?act=submit" method="post" name="theForm"  enctype="multipart/form-data" >
+<input name="why" type="hidden" value=""  id=""/>
+<input name="data[icon]" type="hidden" id = "oldicon" value="{$data.icon}"/>
+  <table width="100%" id="general-table">
+    <tr>
+      <td  class="label">网站名称</td>
+      <td>
+        <input name="data[name]" type="text" id="webname" size="22" value='{$data.name}'  /><span class="require-field">*</span>
+      </td>
+    </tr>
+
+    
+    <tr>
+      <td  class="label" width="20%">网址(URL)</td>
+      <td  width="80%">
+        <input name="data[url]" type="text" id="weburl" size="22" value='{$data.url}'  /><span class="require-field">*</span>
+      </td>
+    </tr>
+    
+     <tr>
+      <td  class="label" width="20%">小图标(ICON)</td>
+      <td  width="80%">
+        <input name="webicon" type="file" id="webicon"  class="txt200" value="{$data.icon}"/><span class="require-field">*</span>
+        {if $data.icon}
+        <img src="./uploadfiles/backstage/icon/{$data.icon}" border="0" height="16" width="16" />
+        
+        {/if}
+      </td>
+    </tr>
+     
+   
+    
+    <tr>
+        <td class="label">备注</td>
+        <td><textarea name="data[remark]" cols="50" rows="5">{$data.remark}</textarea></td>
+      </tr>
+      
+    
+    <tr>
+       <td class="label">&nbsp;</td>
+       <td>
+       <input name="id" type="hidden" value="{$data.ID}"  id="id"/>
+        <input type="button" value=" 确定 " class="button" onclick="javascript:checksubmit();"/>
+        <input type="reset" value=" 重置 " class="button" />
+       
+      </td>
+      
+    </tr>
+
+    
+ </table>
+ 
+{include file=warning.tpl}
+</form>
+</div>
+<script src="./templates/scripts/backstage/sharewebs.js" type="text/javascript"></script>
+{include file=pagefooter.htm}

@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+#add by lzg begin
+
+RewriteRule A001.html admin_login.php
+RewriteRule A002.html admin_home.php
+RewriteRule A003&([a-zA-Z0-9]{1,})&([a-zA-Z0-9]{1,}).html$ admin_city.php?act=$1&id=$2
+RewriteRule A003.html admin_city.php
+
+
+
+
+
+#add by lzg end
+</IfModule>
+
