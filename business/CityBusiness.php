@@ -20,14 +20,14 @@ class CityBusiness extends BaseBusiness{
 	//获取学校列表根据省或省市或省市区
 	function getSchools($idprovince,$idcity=null,$idcounty=null)
 	{
-		$this->sql = "SELECT * FROM m_school WHERE idm_city2='$idprovince'";
+		$this->sql = "SELECT * FROM m_school WHERE idm_city1='$idprovince'";
 		if (!empty($idcity))
 		{
-			$this->sql .= " AND idm_city3='$idcity'";
+			$this->sql .= " AND idm_city2='$idcity'";
 		}
 		if (!empty($idcounty))
 		{
-			$this->sql .= " AND idm_city4='$idcounty'";
+			$this->sql .= " AND idm_city3='$idcounty'";
 		}
 		$rs = $this->db->exceuteQuery($this->sql);
 		return $rs;
@@ -35,14 +35,14 @@ class CityBusiness extends BaseBusiness{
 	//获取学校列表根据一个城市的id
 	function getSchoolsByCityID($idm_city,$level=null)
 	{
-		$field = 'idm_city2';
+		$field = 'idm_city1';
 		if ( $level=='2')
 		{
-			$field = 'idm_city3';
+			$field = 'idm_city2';
 		}
 		else if ( $level=='3')
 		{
-			$field = 'idm_city4';
+			$field = 'idm_city3';
 		}
 		
 		$this->sql = "SELECT * FROM m_school WHERE $field='$idm_city'";
