@@ -47,7 +47,7 @@
 	class="ttbb2">
 	<tr>
 		<td width="16%" align="right"><span class="cl_f30">*</span> E-mail：</td>
-		<td width="59%"><input type="text" name="user[email]" id="email"
+		<td width="59%"><input type="text" name="user[email]" id="email_obj"
 			class="my_txt_350" onblur="check_vali_email(this)" onfocus="javascript:setEnterEorrer(this,false,'','');"/><span id="tips_email_ck"></span></td>
 		<td width="25%">&nbsp;</td>
 	</tr>

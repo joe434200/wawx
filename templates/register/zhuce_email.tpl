@@ -59,15 +59,20 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td class="bottom20 bor_bot1"><input name="" type="button"
+		<td class="bottom20 bor_bot1"><a><input name="" type="button"
 			value="马上去邮箱激活" class="my_ann1"
-			onClick="window.location.href='zhuce_email_ok.html' " /></td>
+			onClick="window.location.href='{$mail}' " /></td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
 		<td class="top10 size14"><strong>没有收到激活邮件？</strong><br />
 		1.确认邮件是否被您提供的邮箱系统自动拦截，或被误认为垃圾邮件放到垃圾箱了。 <br />
-		2.如果您确认邮箱地址正确，可以请求<span class="a0693e3_line" ><a href="register.php?module=resend_email" onclick="resend_email()" id="resend">再次发送激活码</a></span><br />
+		2.如果您确认邮箱地址正确，可以请求<span class="a0693e3_line" >
+		{if $reflg eq 1}
+		<a href="javascript:void(0)" id="resend">激活码已再次发送</a></span><br />
+		{else}
+		<a href="register.php?module=resend_email" id="resend">再次发送激活码</a></span><br />
+		{/if}
 		3.更换相对稳定的邮箱地址<span class="a0693e3_line"><a href="register.php?module=modify_email">更换</a></span></td>
 	</tr>
 </table>

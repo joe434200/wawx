@@ -1,4 +1,9 @@
 {include file=regheader.tpl}
+{literal}
+<script>
+  window.onload=autoDirect();
+</script>
+{/literal}
 <div class="blank20"></div>
 <div class="box4">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -47,7 +52,7 @@
 		<td width="83%" valign="top">
 
 		<p class="zhuce_em">恭喜您成功完成了激活，请尽情享受吾校带给您的服务吧。</span></p>
-		<p class="size12">系统将在5秒后，自动跳到吾校首页：<span class="a0693e3"><a href="javascript:void(0)" onclick="window.location='loginstep.php'">http://www/515xiao.com</a></span></p>
+		<p class="size12">系统将在<span id='timecount' style="color:red;">5</span>秒后，自动跳到吾校首页：<span class="a0693e3"><a href="javascript:void(0)" onclick="window.location='loginstep.php'">http://www/515xiao.com</a></span></p>
 		</td>
 	</tr>
 </table>

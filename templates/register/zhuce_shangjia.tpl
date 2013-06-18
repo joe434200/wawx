@@ -49,12 +49,12 @@
 	class="ttbb4">
 	<tr>
 		<td width="19%" align="right"><span class="cl_f30">*</span>E-mail：</td>
-		<td width="81%"><input type="text" name="user[email]" id="email"
+		<td width="81%"><input type="text" name="user[email]" id="email_obj"
 			class="my_txt_350" onblur="check_vali_email(this)" onfocus="javascript:setEnterEorrer(this,false,'','');"/><span id="tips_email_ck"></span><br/><p id="tips_email"></p></td>
 	</tr>
 	<tr>
 		<td align="right"><span class="cl_f30">*</span> 密码：</td>
-		<td><input type="password" name="user[password]" id="password"
+		<td><input type="password" name="user[password]" id="pwd"
 			class="my_txt_350" onblur="check_vali_pwd(this)" value="{$temp.password}" onfocus="javascript:setPwdEnterError(this,false,'','');"/><span id="tips_pwd_ck"></span><br/><p id="tips_pwd"></p></td>
 	</tr>
 	<tr>

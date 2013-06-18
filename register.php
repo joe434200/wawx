@@ -5,9 +5,11 @@ require_once ('LoginBusiness.php');
 require_once ('SessionUtil.php');
 require_once ('ConstUtil.php');
 require_once ('RegisterBusiness.php');
+require_once ('SelfBusiness.php');
 
 $regbusi = new RegisterBusiness ();
 $currdate = date("Y-m-d H:i:s");
+$selfbusi = new SelfBuiness();
 
 if ($_REQUEST ['module'] == "init" || $_REQUEST ['module'] == "") //初始化注册首页
 {
@@ -94,17 +96,19 @@ elseif ($_REQUEST ['module'] == "send_email") //提取表单，存数据库,发�
         //echo "<pre>";
         //print_r($_SESSION['temp_user']);
         //exit;
-        $smarty->assign('email',$data['email']);
-        $smarty->assign ( 'usertype', $usertype ); //传用户类型
-        $smarty->assign ( 'module', $module ); //传跳转页面的module
-        $smarty->display('register/zhuce_email.tpl');
+        //$smarty->assign('email',$data['email']);
+        //$smarty->assign ( 'usertype', $usertype ); //传用户类型
+        //$smarty->assign ( 'module', $module ); //传跳转页面的module
+        $regbusi->toLocation("register.php?module=Reg_Suc_Show&email=".$data['email']."&usertype=".$usertype."&mode=".$module);
+        //$smarty->display('register/zhuce_email.tpl');
     }
     else //邮件发送失败,显示失败页面
     {
         //删除注册
         $where = " id = '$userid'";
-        $regbusi->reg_delete('t_user', $where);          
-        $smarty->display ( 'register/zhuce_email_failed.tpl');
+        $regbusi->reg_delete('t_user', $where);
+        $regbusi->toLocation("register.php?module=Reg_Fail_Show");
+        //$smarty->display ( 'register/zhuce_email_failed.tpl');
     }
     
 
@@ -134,7 +138,7 @@ elseif ($_REQUEST['module'] == "success") //邮件激活成功
         {
             $sata['albumname'] = "默认相册";
             $sata['introduction'] = "default";
-            $sata['createtime'] = $currtime;
+            $sata['createtime'] = $currdate;
             $sata['creater'] = $userid;
             $albid = $selfbusi->self_insert('t_space_album', $sata);
         }
@@ -154,7 +158,7 @@ elseif ($_REQUEST['module'] == "success") //邮件激活成功
         $space['creator'] = $userid;
         $space['idt_user'] = $userid;
         $space['createtime'] = $currdate;
-        $selfbusi->self_insert('t_space_diary_catalog', $space);
+        $selfbusi->self_insert('t_space', $space);
         
     }
     
@@ -191,16 +195,23 @@ else if($_GET['module'] == "resend_email")
         $pwd = $_SESSION['temp_user']['password'];
         $email = $_SESSION['temp_user']['email'];
         $url = $_SESSION['temp_user']['url'];
+        
+        $part = explode("@", $email);
         $issucc = $regbusi->reg_sendMail($name,$pwd,$email,$url);
+        $mailBox = "http://mail.".$part[1];
+        
         if($issucc)
         {
             $smarty->assign('email',$_SESSION['temp_user']['email']);
+            $smarty->assign('reflg',"1");
+            $smarty->assign('mail',$mailBox);
             $smarty->display('register/zhuce_email.tpl');
         }
         else 
         {
             $smarty->display ( 'register/zhuce_email_failed.tpl');
         }
+        
     }
     
 	
@@ -221,9 +232,41 @@ else if($_REQUEST['module'] == "modify_email")
     }
     $_SESSION['temp_user'] = "";
 }
+else if($module == "Reg_Suc_Show")//注册成功，显示页面
+{
+	$email = $_GET['email'];
+	$usertype = $_GET['usertype'];
+	$mode = $_GET['mode'];
+	
+	$part = explode("@", $email);
+	$issucc = $regbusi->reg_sendMail($name,$pwd,$email,$url);
+	$mailBox = "http://mail.".$part[1];
+	
+	$smarty->assign('mail',$mailBox);
+	$smarty->assign('email',$email);
+	$smarty->assign ( 'usertype', $usertype ); //传用户类型
+	$smarty->assign ( 'module', $mode ); //传跳转页面的module
+	$smarty->display('register/zhuce_email.tpl');
+}
+else if($module == "Reg_Fail_Show")//注册失败，显示页面
+{
+	$smarty->display ( 'register/zhuce_email_failed.tpl');
+}
+else if($module == "")
+{
+
+}
+else if($module == "")
+{
+
+}
+else if($module == "")
+{
+
+}
 else
 {
-    
+
 }
 
 ?>

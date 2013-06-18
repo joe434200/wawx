@@ -13,6 +13,13 @@ class RegisterBusiness extends BaseBusiness
         parent::__construct ();
     }
     
+    function toLocation($url)
+    {
+    	echo "<script language='javascript'>";
+    	echo "location='$url';";
+    	echo "</script>";
+    }
+    
     function reg_update($tablename, $data, $where)
     {
         parent::Update ( $tablename, $data, $where );
