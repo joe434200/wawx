@@ -14,32 +14,6 @@ $loginbusi = new LoginBusiness();
 $_SESSION['barType'] = 4;
 //-------------------add by zrh end-------------------
 
-//截取字符串，否则中文可能乱码
-function utf8Substr($str, $from, $len) 
-{ 
-	return preg_replace('#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$from.'}'. 
-	'((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$len.'}).*#s', 
-	'$1',$str); 
-}
-function formatetime($value)
-{
-	$value = substr($value,11,2)." : "
-			.substr($value,14,2);
-	return $value;
-}
-//将日期转化为前几天的格式
-function formatdate($value)
-{
-	if($value==0)
-		$value='今日';
-	elseif ($value==1)
-	    $value='昨日';
-	elseif ($value==2)
-	    $value='前日';
-	else
-		$value='前'.$value.'日';
-    return $value;
-}
 //将等级转化为图片
 function getleveltag($level)
 {
@@ -124,32 +98,8 @@ if (empty($module)|| $module == 'home')
 	}
 	
 	$member = $forumbusi->searchmember();	//查询最新会员信息
-	foreach ($member as &$value)
-	{
-		$value['days']=formatdate($value['days']);
-		$value['createtime'] = formatetime($value['createtime']);
-		}
-    unset($value);
-	
-    
 	$hot = $forumbusi->searchhot();//查找热点帖子显示在页面的右侧
-    foreach ($hot as &$value)
-	{
-		$value['days']=formatdate($value['days']);
-		$value['createtime'] = formatetime($value['createtime']);
-    	$value['title']=utf8Substr($value['title'],0,4); 
-	}
-    unset($value);
-   
 	$newpic = $forumbusi->searchnewpic();//查询最新的图片
-	foreach ($newpic as &$value)
-	{
-		$picinfo = explode(".",$value['oldname']);
-		$value['oldname'] = $picinfo[0];
-	}
-	unset($value);
-	
-	
 	$firstforumtype = $forumbusi->seachfirstforumtype();//查询板块信息
 	$forum['countall']=$forumbusi->counttiezi();//查询所有帖子的数量
 	$forum['counttoday']=$forumbusi->counttiezi(NULL, 1);//查询今天的帖子
@@ -206,13 +156,6 @@ elseif ($module == 'new')
 	$forumtopic = $forumbusi->seachforumtopic();//查询帖子分类信息
 	$hot = $forumbusi->searchhot();//查找热点帖子显示在页面的右侧
 	$newpic = $forumbusi->searchnewpic();//查询最新的图片
-	foreach ($newpic as &$value)
-	{
-		$picinfo = explode(".",$value['oldname']);
-		$value['oldname'] = $picinfo[0];
-	}
-	unset($value);
-	
 	$smarty->assign('forum',$forum);
 	$smarty->assign('forumtopic',$forumtopic);
 	$smarty->assign('hot',$hot);
@@ -318,13 +261,6 @@ elseif ($module == 'replylist')
 	$hot = $forumbusi->searchhot();//查找热点帖子
 	$excel =$forumbusi->searchexcel();//查找精华帖子
 	$newpic = $forumbusi->searchnewpic();//查询最新的图片
-	foreach ($newpic as &$value)
-	{
-		$picinfo = explode(".",$value['oldname']);
-		$value['oldname'] = $picinfo[0];
-	}
-	unset($value);
-
     $currentuser=$forumbusi->searchuser($_SESSION['baseinfo']['ID']);
     $admin = $forumbusi->searchadmin($oneforum['idm_forum_catalog']);//查询版主ID
     //版主权限
@@ -394,12 +330,6 @@ elseif ($module=='louzhu')
 		 $oneforum['adminflg']='普通会员';
    $hot = $forumbusi->searchhot();//查找热点帖子显示在页面的右侧
    $newpic = $forumbusi->searchnewpic();//查询最新的图片
-	foreach ($newpic as &$value)
-	{
-		$picinfo = explode(".",$value['oldname']);
-		$value['oldname'] = $picinfo[0];
-	}
-	unset($value);
 	$countforumtype = $forumbusi->countforum();//查询板块数量
 	$smarty->assign("oneforum",$oneforum);
 	$smarty->assign('hot',$hot);
@@ -451,9 +381,9 @@ elseif($module == 'myforum')
 //回贴
 elseif ($module=='sendreply')
 {
-	
+	$forumid = $_POST['forumid'];
 	$replyinfo['content']=$_POST['editor_id'];
-	$replyinfo['businessid']=$_POST['forumid'];
+	$replyinfo['businessid']=$forumid;
 	$replyinfo['businesstype']=4;
 	$replyinfo['creater']=$_SESSION['baseinfo']['ID'];
 	$replyinfo['createtime']=date("Y-m-d H:i:s");
@@ -468,6 +398,7 @@ elseif ($module=='sendreply')
 	}
 	else 
 	{
+		$forumbusi->updatereplynum($forumid, 1);
 		$replytoday = $forumbusi->replytodaynum($_SESSION['baseinfo']['ID']);
 		if($replytoday<11)
 		{
@@ -526,11 +457,23 @@ elseif ($module=='shield')
 }
 
 //屏蔽回复操作所用的ajax
-elseif ($module=='secondreplyshield')
+elseif ($module=='changereplyshield')
 {
-	$replyshieldflg = $_REQUEST['shieldflg'];
-	$secondid = $_REQUEST['secondid'];
-	$forumbusi->updatereplyflg($secondid,$replyshieldflg);
+	$replyshieldflg = $_GET['shieldflg'];
+	$forumreplyId = $_GET['forumreplyId'];
+	$forumid = $_GET['forumid'];
+	$forumbusi->updatereplyflg($forumreplyId,$replyshieldflg);
+	if($forumid)
+	{
+		if($replyshieldflg)
+		{
+			$forumbusi->updatereplynum($forumid,0);
+		}
+		else 
+		{
+			$forumbusi->updatereplynum($forumid,1);
+		}
+	}
 	echo $replyshieldflg;
 }
 //收听某人时调用的ajax
@@ -548,7 +491,6 @@ elseif ($module=='listen')
 elseif ($module=='checkpic')
 {
 	$response = $_SESSION['checkpic'];
-	unset($_SESSION['checkpic']);
 	echo $response;
 }
 //发消息所用ajax

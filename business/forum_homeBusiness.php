@@ -5,6 +5,8 @@ require_once('SupportException.php');
 require_once('SessionUtil.php');
 require_once('PageSplitBusiness.php');
 
+
+
 class forum_homeBusiness extends PageSplitBusiness
 {
 	
@@ -209,7 +211,12 @@ class forum_homeBusiness extends PageSplitBusiness
 							  ORDER BY createtime DESC
 							  limit 0,10;";
 		 $rs = $this->db->exceuteQuery($sql);
-		 
+		 foreach ($rs as &$value)
+		 {
+		 	$value['days']=$this->formatdate($value['days']);
+		 	$value['createtime'] = $this->formatetime($value['createtime']);
+		 }
+		 unset($value);
 		 return $rs;
 	}
 	/**
@@ -239,11 +246,21 @@ class forum_homeBusiness extends PageSplitBusiness
 					   createtime DESC
 					   limit 0,10;";
 		 $rs = $this->db->exceuteQuery($sql);
-		 
+		 foreach ($rs as &$value)
+		 {
+		 	$value['days']=$this->formatdate($value['days']);
+		 	$value['createtime'] = $this->formatetime($value['createtime']);
+		 	$value['title']=$this->utf8Substr($value['title'],0,4);
+		 }
+		 unset($value);
 		 return $rs;
 		
 	}
-	
+	/**
+	 *
+	 *查询精华
+	 *
+	 */
 	
 	function searchexcel()
 	{
@@ -328,6 +345,12 @@ class forum_homeBusiness extends PageSplitBusiness
                 ORDER BY createtime DESC
 			    LIMIT 0,9;";
 		 $rs = $this->db->exceuteQuery($sql);
+		 foreach ($rs as &$value)
+		 {
+		 	$picinfo = explode(".",$value['oldname']);
+		 	$value['oldname'] = $picinfo[0];
+		 }
+		 unset($value);
 		 return $rs;
 	}
 	/**
@@ -344,6 +367,7 @@ class forum_homeBusiness extends PageSplitBusiness
 					t_user.onlinetime,
 					t_user.level,
 					t_user.forumcoins,
+					t_user.coins,
 					date(t_user.lastlogintime) AS logindate,
 					t_forum_topic.*
 				FROM
@@ -377,12 +401,14 @@ class forum_homeBusiness extends PageSplitBusiness
 						t_user.onlinetime,
 						t_user.level,
 						t_user.forumcoins,
+						t_user.coins,
 						date(t_user.lastlogintime)AS logindate,
 						t_reply.ID AS replyid,
 						t_reply.content,
 						t_reply.creater,
 						t_reply.createtime,
-						t_reply.shieldflg
+						t_reply.shieldflg,
+						t_reply.businessid
 					FROM
 						`t_reply`
 					INNER JOIN `t_user` ON t_reply.creater = t_user.ID
@@ -536,6 +562,29 @@ class forum_homeBusiness extends PageSplitBusiness
 		return $rs;
 	}
 	/**
+	 *
+	 *更新帖子的回复量
+	 */
+	function updatereplynum($forumid,$type)
+	{
+		if($type)
+		{
+			$sql="UPDATE t_forum_topic
+				SET replynum = replynum + 1
+				WHERE
+				ID = '$forumid'";
+		}
+		else 
+		{
+			$sql="UPDATE t_forum_topic
+			SET replynum = replynum - 1
+			WHERE
+			ID = '$forumid'";
+		}
+		$rs = $this->db->exceuteUpdate($sql);
+		return $rs;
+	}
+	/**
 	 * 
 	 *更新帖子的标志如屏蔽，置顶等
 	 */
@@ -593,6 +642,34 @@ class forum_homeBusiness extends PageSplitBusiness
 		}
 		 $rs = $this->db->exceuteUpdate($sql);
 		 return $rs;
+	}
+	
+	
+	//截取字符串，否则中文可能乱码
+	function utf8Substr($str, $from, $len)
+	{
+		return preg_replace('#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$from.'}'.
+				'((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$len.'}).*#s',
+				'$1',$str);
+	}
+	function formatetime($value)
+	{
+		$value = substr($value,11,2)." : "
+				.substr($value,14,2);
+		return $value;
+	}
+	//将日期转化为前几天的格式
+	function formatdate($value)
+	{
+		if($value==0)
+			$value='今日';
+		elseif ($value==1)
+		$value='昨日';
+		elseif ($value==2)
+		$value='前日';
+		else
+			$value='前'.$value.'日';
+		return $value;
 	}
 	
 }

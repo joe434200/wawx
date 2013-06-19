@@ -361,7 +361,7 @@
 <ul>
 {if $newpic}
 {foreach from=$newpic item=item key=key}
-<li><img src="./uploadfiles/forum/{$item.realname}" width="49" height="48"/><p><a href="./uploadfiles/forum/{$item.realname}">{$item.oldname}</a></p></li>
+<li><img src="./uploadfiles/forum/{$item.realname}" width="49" height="48" onerror="this.src='./templates/images/schoolbar/wb1.jpg'"/><p><a href="./uploadfiles/forum/{$item.realname}">{$item.oldname}</a></p></li>
 {/foreach}
 {/if}
 </ul>

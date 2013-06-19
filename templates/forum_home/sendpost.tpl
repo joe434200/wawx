@@ -69,20 +69,22 @@
    
       <div   class="lt_show_bt">
 	  <span class="lt_show_bt1">社区精华</span>
-	  <em>热门推荐：{if $hot}
+	  <em>热门推荐：
+	  {if $hot}
      {foreach from=$hot item=item key=key} 
      {if $key ge 0 and $key lt 5}
     <a href="forum_home.php?module=replylist&forumid={$item.ID}">{$item.title}</a>
      {/if}
      {/foreach}
-     {/if}</em>	  </div>
+     {/if}
+     </em>	  </div>
 	  <div class="blank5"></div>
       <div class="lt_show_info">
      {if $newpic}
 	  <ul>
      {foreach from=$newpic item=item key=key}
      {if $key ge 0 and $key lt 6}
-     <li><img src="./uploadfiles/forum/{$item.realname}" width="121" height="90"/><p><a href="./uploadfiles/forum/{$item.realname}">{$item.oldname}</a></p></li>
+     <li><img src="./uploadfiles/forum/{$item.realname}" width="121" height="90" onerror="this.src='./templates/images/schoolbar/wb1.jpg'"/><p><a href="./uploadfiles/forum/{$item.realname}">{$item.oldname}</a></p></li>
      {/if}
     {/foreach}
 	  </ul>
