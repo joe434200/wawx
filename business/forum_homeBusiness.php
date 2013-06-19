@@ -327,7 +327,7 @@ class forum_homeBusiness extends PageSplitBusiness
 	{
 		$sql = "SELECT ID
                 FROM `m_forum_catalog`
-			    WHERE name = '图片专区' 
+			    WHERE name LIKE '%图片专区%' 
 			    ;";
 		 $rs = $this->db->exceuteQuery($sql);
 		 return $rs[0][0];
