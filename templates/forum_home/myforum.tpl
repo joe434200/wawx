@@ -53,7 +53,7 @@
 
 
 <div class="forum_li clearfix">
-<ul id="forum_tab" style="height:500px">
+<ul id="forum_tab" style="height:auto!important;height:500px;min-height:500px;">
 {if $allforum}
 {foreach from=$allforum item=item key=key} 
 <li>
