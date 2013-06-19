@@ -14,6 +14,33 @@ $loginbusi = new LoginBusiness();
 $_SESSION['barType'] = 4;
 //-------------------add by zrh end-------------------
 
+//截取字符串，否则中文可能乱码
+function utf8Substr($str, $from, $len) 
+{ 
+	return preg_replace('#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$from.'}'. 
+	'((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$len.'}).*#s', 
+	'$1',$str); 
+}
+function formatetime($value)
+{
+	$value = substr($value,11,2)." : "
+			.substr($value,14,2);
+	return $value;
+}
+//将日期转化为前几天的格式
+function formatdate($value)
+{
+	if($value==0)
+		$value='今日';
+	elseif ($value==1)
+	    $value='昨日';
+	elseif ($value==2)
+	    $value='前日';
+	else
+		$value='前'.$value.'日';
+    return $value;
+}
+//将等级转化为图片
 function getleveltag($level)
 {
     $i=1;
@@ -51,7 +78,7 @@ function getleveltag($level)
    return $levelurl;
 }
 
-
+//记住密码
 function  SetRememberInfo($loginbusi,$smarty)
 {
 	//检查登陆
@@ -99,16 +126,8 @@ if (empty($module)|| $module == 'home')
 	$member = $forumbusi->searchmember();	//查询最新会员信息
 	foreach ($member as &$value)
 	{
-		if($value['days']==0)
-		   $value['days']='今日';
-		elseif ($value['days']==1)
-		   $value['days']='昨日';
-		elseif ($value['days']==2)
-		    $value['days']='前日';
-		else
-		    $value['days']='前'.$value['days'].'日';
-		$value['createtime'] = substr($value['createtime'], 11,2)." : "
-    						   .substr($value['createtime'],14,2);
+		$value['days']=formatdate($value['days']);
+		$value['createtime'] = formatetime($value['createtime']);
 		}
     unset($value);
 	
@@ -116,18 +135,9 @@ if (empty($module)|| $module == 'home')
 	$hot = $forumbusi->searchhot();//查找热点帖子显示在页面的右侧
     foreach ($hot as &$value)
 	{
-		if($value['days']==0)
-		   $value['days']='今日';
-		elseif ($value['days']==1)
-		   $value['days']='昨日';
-		elseif ($value['days']==2)
-		    $value['days']='前日';
-		else
-		    $value['days']='前'.$value['days'].'日';
-		$value['createtime'] = substr($value['createtime'], 11,2)." : "
-    						   .substr($value['createtime'],14,2);
-	   if(strlen($value['title'])>6) 
-    	     $value['title']=substr($value['title'],0,6)."…"; 
+		$value['days']=formatdate($value['days']);
+		$value['createtime'] = formatetime($value['createtime']);
+    	$value['title']=utf8Substr($value['title'],0,4); 
 	}
     unset($value);
    
@@ -148,10 +158,14 @@ if (empty($module)|| $module == 'home')
    
     $admin = $forumbusi->searchadmin($type); //查询版主ID
     //版主权限
-    if($_SESSION['baseinfo']['ID']==$admin['admin1']||$_SESSION['baseinfo']['ID']==$admin['admin2']||$_SESSION['baseinfo']['ID']==$admin['admin3'])
+    if($_SESSION['baseinfo']['ID'])
     {
-    	$power=1;
+	    if($_SESSION['baseinfo']['ID']==$admin['admin1']||$_SESSION['baseinfo']['ID']==$admin['admin2']||$_SESSION['baseinfo']['ID']==$admin['admin3'])
+	    {
+	    	$power=1;
+	    }
     }
+    //查询版主名字
     $admininfo[1]=$forumbusi->searchuser($admin['admin1']);
     $admininfo[2]=$forumbusi->searchuser($admin['admin2']);
     $admininfo[3]=$forumbusi->searchuser($admin['admin3']);
@@ -169,6 +183,7 @@ if (empty($module)|| $module == 'home')
 	$smarty->assign("lngtype",$lngtype);
 	$smarty->assign("pagecount",$totalpages);
 	$smarty->assign("type",$type);
+	$smarty->assign("order",$order);
 	$smarty->assign("forum",$forum);
 	$smarty->assign("newpic",$newpic);
 	$smarty->assign("member",$member);//最新会员
@@ -278,7 +293,7 @@ elseif ($module == 'replylist')
 	$currpage = $_REQUEST['p'];
 	$forumid = $_REQUEST['forumid'];
 	$order = $_REQUEST['order'];
-	$userid = $_REQUEST['userid'];
+	$userid = $_REQUEST['userid'];  //只看该作者时的作者的id 
 //	echo "aaa".$userid;
    if (empty($currpage))
 	{
@@ -300,7 +315,8 @@ elseif ($module == 'replylist')
     $oneforum['replynum']=$forumbusi->replycount($forumid);//查询该帖子的回复数量
     $oneforum['levelimage']=getleveltag($oneforum['level']);//将等级转换成星星等
 	$countforumtype = $forumbusi->countforum();//查询板块数量
-	$hot = $forumbusi->searchhot();//查找热点帖子显示在页面的右侧
+	$hot = $forumbusi->searchhot();//查找热点帖子
+	$excel =$forumbusi->searchexcel();//查找精华帖子
 	$newpic = $forumbusi->searchnewpic();//查询最新的图片
 	foreach ($newpic as &$value)
 	{
@@ -352,6 +368,7 @@ elseif ($module == 'replylist')
     $smarty->assign("userid",$userid);
     $smarty->assign("currpage",$currpage);  
     $smarty->assign('hot',$hot);
+    $smarty->assign('excel',$excel);
 	$smarty->assign('newpic',$newpic);
     $smarty->assign("currpagebase",$currpagebase);
 	$smarty->assign("oneforum",$oneforum);
@@ -508,7 +525,7 @@ elseif ($module=='shield')
 	echo $shieldflg;
 }
 
-//屏蔽二级回复操作所用的ajax
+//屏蔽回复操作所用的ajax
 elseif ($module=='secondreplyshield')
 {
 	$replyshieldflg = $_REQUEST['shieldflg'];

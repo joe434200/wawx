@@ -239,7 +239,7 @@ function checkSubmit()
 	 
  }
  
-//二级回复屏蔽操作
+//回复屏蔽操作
  var secondid;
  function changesecondreply(secondreplyid)
  {

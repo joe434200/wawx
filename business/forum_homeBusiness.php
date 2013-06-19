@@ -37,7 +37,7 @@ class forum_homeBusiness extends PageSplitBusiness
                     c.replyID,
                     d.name,
                     d.imagename,
-                    IFNULL(c.replycount,0) AS replynum,
+                    a.replynum,
                     DATE(c.lastreply) AS replyday
                    FROM `t_forum_topic` a
                    INNER JOIN `t_user` b
@@ -46,7 +46,7 @@ class forum_homeBusiness extends PageSplitBusiness
                    ON  a.idm_forumtopic_catalog =  d.ID
                    LEFT  join   
                    (
-	                  SELECT  creater AS replyID,businessid,nickname AS replyname,COUNT(1) AS replycount,MAX(t_reply.createtime) AS lastreply FROM t_reply 
+	                  SELECT  creater AS replyID,businessid,nickname AS replyname,MAX(t_reply.createtime) AS lastreply FROM t_reply 
 	                  INNER JOIN t_user 
 	                  ON    creater =  t_user.ID 
 	                  WHERE  businesstype = '4'
@@ -59,7 +59,8 @@ class forum_homeBusiness extends PageSplitBusiness
                   ) c
                  ON a.ID  = c.businessid
                  WHERE a.idm_forum_catalog = '$type'
-                 AND b.`status` = '1' ";
+                 AND b.`status` = '1'
+	             AND b.shieldflg = '0' ";
 	if(empty($power))
 	   {
 	     $sql .=" AND  a.shieldflg = '0'";
@@ -77,7 +78,8 @@ class forum_homeBusiness extends PageSplitBusiness
                    ON t_forum_topic.idm_forumtopic_catalog =  m_forumtopic_catalog.ID 
                   WHERE 
                   t_forum_topic.idm_forum_catalog = '$type'
-                  AND t_user.`status` = '1' ";
+                  AND t_user.`status` = '1' 
+	              AND t_user.shieldflg = '0' ";
                   if(empty($power))
                   {
                    $sqlcount .=" AND  t_forum_topic.shieldflg = '0' ";
@@ -232,6 +234,7 @@ class forum_homeBusiness extends PageSplitBusiness
 					   ON idm_forumtopic_catalog = m_forumtopic_catalog.ID
 					   WHERE t_forum_topic.shieldflg = '0'
 					   AND   t_user.status = '1'
+		 		       AND   t_user.shieldflg = '0'
 					   ORDER BY replynum DESC,
 					   createtime DESC
 					   limit 0,10;";
@@ -239,6 +242,35 @@ class forum_homeBusiness extends PageSplitBusiness
 		 
 		 return $rs;
 		
+	}
+	
+	
+	function searchexcel()
+	{
+		$sql = "SELECT t_forum_topic.ID,
+		               title,
+		               m_forumtopic_catalog.name,
+		               t_forum_topic.createtime,
+		               creater,
+		               replynum,
+		               t_user.nickname,
+		               DATEDIFF(now(),t_forum_topic.createtime) as days
+					   FROM `t_forum_topic`
+					   INNER JOIN `t_user`
+					   ON creater = t_user.ID
+					   INNER JOIN `m_forumtopic_catalog`
+					   ON idm_forumtopic_catalog = m_forumtopic_catalog.ID
+					   WHERE t_forum_topic.excelflg = '1'
+				       AND   t_forum_topic.shieldflg = '0'
+					   AND   t_user.status = '1'
+		 		       AND   t_user.shieldflg = '0'
+					   ORDER BY 
+					   createtime DESC
+					   limit 0,4;";
+		$rs = $this->db->exceuteQuery($sql);
+			
+		return $rs;
+	
 	}
 	/**
 	 * 

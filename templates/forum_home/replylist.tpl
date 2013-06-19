@@ -50,10 +50,8 @@
 	  <span class="lt_show_bt1">社区精华</span>
 	  <em>热门推荐：
 	  {if $hot}
-      {foreach from=$hot item=item key=key} 
-     {if $key ge 0 and $key lt 5}
-    <a href="forum_home.php?module=replylist&forumid={$item.ID}">{$item.title}</a>
-     {/if}
+      {foreach from=$excel item=item key=key} 
+     <a href="forum_home.php?module=replylist&forumid={$item.ID}">{$item.title}</a>
      {/foreach}
      {/if}</em>	  </div>
 	  

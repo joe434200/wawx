@@ -102,14 +102,16 @@
 	 <form action="" method="get">
 	 
 	 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ttbb1"> 
-	  <tr>
+	
+  <tr>
     <td align="right">&nbsp;</td>
-    <td><span><a href="#">话题</a></span>  <span>|</span>
-	<span><a href="#">圈子</a></span>  <span>|</span>
-	<span><a href="#">用户</a></span>  <span>|</span>
-	<span><a href="#">活动</a></span>  </td>
+    <td><span><a href="javascript:void(0)" onclick="javascript:changesearch(4)" id="typesearch4" {if $type eq 4} style="color:blue" {/if}>话题</a></span>  <span>|</span>
+	<span><a href="javascript:void(0)" onclick="javascript:changesearch(2)" id="typesearch2" {if $type eq 2} style="color:blue" {/if}>圈子</a></span>  <span>|</span>
+	<span><a href="javascript:void(0)" onclick="javascript:changesearch(5)" id="typesearch5" {if $type eq 5} style="color:blue" {/if}>用户</a></span>  <span>|</span>
+	<span><a href="javascript:void(0)" onclick="javascript:changesearch(3)" id="typesearch3" {if $type eq 3} style="color:blue" {/if}>活动</a></span>  </td>
     <td>&nbsp;</td>
   </tr>
+  
   <tr>
     <td width="18%" align="right"><img src="./templates/images/schoolbar/search_2.gif" width="113" height="32" /></td>
     <td width="58%"><input name="Input" type="text"  class="wx_search_txt" id="searcharea" value="{$key}"/></td>
@@ -122,24 +124,8 @@
 	 
 	 
 	 
-	 <div class="wx_search_list">
-	 {if !$searchdata}
-	 <!--没有找到-->
-	 <p class="size14">吾校已为您搜到0条相关结果。（用时0.06秒）</p>
-     <div class="blank20"></div>
-	 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="22%">&nbsp;</td>
-    <td width="16%"><img src="./templates/images/schoolbar/search_3.gif" width="86" height="127" /></td>
-    <td width="62%" class="size14">很抱歉，这里没有找到你想找的人！</td>
-  </tr>
-   </table>
-   {else}
-   <!--/没有找到-->
-   
-   
-   
-   
+	 <div class="wx_search_list" style="height:auto!important;height:300px;min-height:300px;">
+	 {if $searchdata.info}
     <!--找到数据-->
 	<p class="size14">为您找到{$searchdata.countnum}条相关数据</p>
 	<div class="blank20"></div>
@@ -147,34 +133,34 @@
 	    {if $type eq 1 or $type eq 2}
 	   <div class="q_list clearfix">
 	     <ul class=" clearfix">
-		 {foreach from=$searchdata.info item=item key=key}
-		 <li  class=" clearfix">
-		   <div class="pic"><a href="javascript:void(0)"><img src="./uploadfiles/group/groupImage/{$item.photo}" border="0" /></a></div>
-		   <div class="info  clearfix">
-		      <dl>
-		      <p class="a0693e3"><a href="grp_single_home.php?ID={$item.ID}">{$item.groupname}</a></p>
-			  <dt>话题：{$item.topicnum}&nbsp;&nbsp;&nbsp;&nbsp;成员：{$item.membernum}</dt>
-			  <dd>{$item.introduction}</dd>
-			  </dl>
-		   </div>
-		   <div class="ann afff"><a href="grp_single_home.php?ID={$item.ID}">进入圈子</a></div>
-		 </li>
-		 {/foreach}
+			 {foreach from=$searchdata.info item=item key=key}
+			 <li  class=" clearfix">
+			   <div class="pic"><a href="javascript:void(0)"><img src="./uploadfiles/group/groupImage/{$item.photo}" border="0" /></a></div>
+			   <div class="info  clearfix">
+			      <dl>
+			      <p class="a0693e3"><a href="grp_single_home.php?ID={$item.ID}">{$item.groupname}</a></p>
+				  <dt>话题：{$item.topicnum}&nbsp;&nbsp;&nbsp;&nbsp;成员：{$item.membernum}</dt>
+				  <dd>{$item.introduction}</dd>
+				  </dl>
+			   </div>
+			   <div class="ann afff"><a href="grp_single_home.php?ID={$item.ID}">进入圈子</a></div>
+			 </li>
+			 {/foreach}
 		 </ul>
 	   </div> <!--/全部 list-->
-	   {/if}
+	  {/if}
 	 {if $type eq 3}
 	  <div class="hd_activities clearfix">
 			     <ul id="act_list">
 			  
-			    {foreach from =$act_lists key=act_listsKey item = act_list}
+			    {foreach from =$searchdata.info key=act_listsKey item = act_list}
     			<li class="clearfix">
 				   <div class="pic">{if $act_list.photo}<img src="./uploadfiles/activity/hdImage/{$act_list.photo}"  border="0" />{else}<img src="./templates/images/schoolbar/6.jpg" border="0" />{/if}</div>
 				   <div class="info">
 				       <h3 class="a0693e3_line"><a href="hd.php?module=hd_list_show1&hd_id={$act_list.ID}">{$act_list.actname}
 				       </a></h3>
 					   <p>活动时间: {$act_list.begintime} --- {$act_list.endtime}</p>
-					   <p>地点：{$act_list.place} </p>
+					   <p>地点：{$act_list.name} </p>
 					   <p>发起：<em class="a0693e3"><a href="zone.php?uid={$act_list.uID}">{$act_list.nickname}</a></em></p>
 					   <p> <em class="nub1">{$act_list.attentionnum}</em>  人关注&nbsp;&nbsp;&nbsp;<em class="nub2">{$act_list.membernum}</em>  人参加 </p>
 				   </div>
@@ -185,22 +171,36 @@
 				 </li>
    				{/foreach}
    				</ul>
-   				
-   				{/if}
+   				</div>
+   	
+   		{/if}
+   {if  $type eq 4}
 	<div class="wx_search_list">
 	<ul>
-	
-	<li>
-	<h3><a href="#">我搜到的数据标题</a></h3>
-	<p>中国粮食自给率目前已经跌破逾90%。现在进口的粮食进口量越来越多，主要原因不是我们的粮食出生产出了问题，其中主要有如下一些原因：首先，是国外的粮食便宜。现在我国从澳大利亚进口小麦多用来</p>
-	</li>
-	
-
-	
+		 {foreach from=$searchdata.info item=item key=key}
+		<li>
+		<h3><a href="forum_home?module=replylist&forumid={$item.ID}">{$item.title}</a></h3>
+		<p>{$item.content}</p>
+		</li>
+		{/foreach}
 	</ul>
+	</div>
+	   {/if}
+	 {if $type eq 5}
+	 <div class="wx_search_peo clearfix">
+   <h3>你可能想认识的人</h3>
+	   <ul>
+	    {foreach from=$searchdata.info item=item key=key}
+	   <li>
+	   <p><img src="./uploadfiles/user/{$item.photo}" width="100px" height="100px" onerror="this.src='./templates/images/schoolbar/avatar.jpeg'"/></p>
+	   <p><a href="wb_index.php?uid={$item.ID}">{if $item.nickname} {$item.nickname} {else} {$item.email} {/if}</a></p>
+	   </li>
+	   {/foreach}
+	    </ul>
+   </div>
+      {/if}
+	 
 	<div class="blank20"></div>
-	
-	
 	<!--page-->
 	   <div class="num_pg">
 	  <script type="text/javascript">
@@ -217,23 +217,29 @@
 	
 	 <!--/找到数据-->
    
+     <!--没有找到-->
+	   {if !$searchdata.info and $key}
+		 {if $type neq 5}
+		 <p class="size14">吾校已为您搜到0条相关结果。（用时{$runtime}秒）</p>
+	     <div class="blank20"></div>
+	     {else}
+		 <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+	    <td width="22%">&nbsp;</td>
+	    <td width="16%"><img src="./templates/images/schoolbar/search_3.gif" width="86" height="127" /></td>
+	    <td width="62%" class="size14">很抱歉，这里没有找到你想找的人！</td>
+	  </tr>
+	   </table>
+	     {/if}
+	   {/if}
+  
+   <!--/没有找到-->
    
    
    
    
    
-   <div class="blank20"></div>
-   <div class="wx_search_peo clearfix">
-   <h3>你可能想认识的人</h3>
-   <ul>
-   <li>
-   <p><img src="./templates/images/schoolbar/5.jpg" /></p>
-   <p><a href="#">休息休息</a></p>
-   </li>
 
-   
-   </ul>
-   </div>
     
      </div>
 	 
@@ -241,7 +247,7 @@
 	 
 	 
 	 
-	 </div>
+
     
 
   
