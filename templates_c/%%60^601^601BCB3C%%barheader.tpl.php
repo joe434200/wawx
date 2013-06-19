@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2013-06-16 16:43:26
+<?php /* Smarty version 2.6.18, created on 2013-06-19 14:53:10
          compiled from barheader.tpl */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -19,6 +19,7 @@
 <script src="./templates/pagesplit/page.js" type="text/javascript"></script>
 <script src="./templates/scripts/schoolbar/roll.js" type="text/javascript"></script>
 <script src="./templates/scripts/login.js" type="text/javascript"></script>
+<script  src="./templates/scripts/bigsearch.js" type="text/javascript"></script>
 
 </head>
 
@@ -119,8 +120,8 @@ unset($_smarty_tpl_vars);
 	   </ul>
 	   
 	   <div class="home_sear">
-	    <div class="lt_input lt_top_txt"><input name="" type="text" /></div>
-		<div class="lt_input"><input type="button"  class="lt_top_ann" value=" "/></div>
+	    <div class="lt_input lt_top_txt"><input name="" type="text" id="searcharea"/></div>
+		<div class="lt_input"><input type="button"  class="lt_top_ann" value=" " onclick="javascript:checksearch()"/></div>
 	  </div>
 	  
 	  </div>

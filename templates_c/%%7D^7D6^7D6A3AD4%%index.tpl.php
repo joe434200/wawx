@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2013-06-16 16:43:26
+<?php /* Smarty version 2.6.18, created on 2013-06-19 14:53:10
          compiled from barindex/index.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "barheader.tpl", 'smarty_include_vars' => array()));

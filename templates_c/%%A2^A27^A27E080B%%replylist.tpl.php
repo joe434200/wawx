@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2013-06-08 15:49:00
+<?php /* Smarty version 2.6.18, created on 2013-06-19 20:48:19
          compiled from forum_home/replylist.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "barheader.tpl", 'smarty_include_vars' => array()));
@@ -57,14 +57,12 @@ unset($_smarty_tpl_vars);
 	  <span class="lt_show_bt1">社区精华</span>
 	  <em>热门推荐：
 	  <?php if ($this->_tpl_vars['hot']): ?>
-      <?php $_from = $this->_tpl_vars['hot']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+      <?php $_from = $this->_tpl_vars['excel']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['key'] => $this->_tpl_vars['item']):
 ?> 
-     <?php if ($this->_tpl_vars['key'] >= 0 && $this->_tpl_vars['key'] < 5): ?>
-    <a href="forum_home.php?module=replylist&forumid=<?php echo $this->_tpl_vars['item']['ID']; ?>
+     <a href="forum_home.php?module=replylist&forumid=<?php echo $this->_tpl_vars['item']['ID']; ?>
 "><?php echo $this->_tpl_vars['item']['title']; ?>
 </a>
-     <?php endif; ?>
      <?php endforeach; endif; unset($_from); ?>
      <?php endif; ?></em>	  </div>
 	  
@@ -77,7 +75,7 @@ unset($_smarty_tpl_vars);
 ?>
       <?php if ($this->_tpl_vars['key'] >= 0 && $this->_tpl_vars['key'] < 6): ?>
       <li><img src="./uploadfiles/forum/<?php echo $this->_tpl_vars['item']['realname']; ?>
-" width="121" height="90"/><p><a href="./uploadfiles/forum/<?php echo $this->_tpl_vars['item']['realname']; ?>
+" width="121" height="90" onerror="this.src='./templates/images/schoolbar/wb1.jpg'"/><p><a href="./uploadfiles/forum/<?php echo $this->_tpl_vars['item']['realname']; ?>
 "><?php echo $this->_tpl_vars['item']['oldname']; ?>
 </a></p></li>
       <?php endif; ?>
@@ -121,7 +119,8 @@ href="forum_home.php?module=new&type=<?php echo $this->_tpl_vars['oneforum']['id
 <img src="./templates/images/schoolbar/post5.gif" border="0" /></a></div>
 <div class="num">
 <DIV class="num_pg">
-<?php if ($this->_tpl_vars['oneforum']['power'] == 1): ?>
+
+<?php if ($this->_tpl_vars['oneforum']['power'] == '1'): ?>
  <?php if ($this->_tpl_vars['oneforum']['topflg']): ?>
  <a  href="javascript:changetop();void(0)" id="forumtop" >取消置顶</a>
  <?php else: ?>
@@ -203,7 +202,7 @@ href="forum_home.php?module=new&type=<?php echo $this->_tpl_vars['oneforum']['id
     <th><p><a href="javascript:void(0)" name = "listen<?php echo $this->_tpl_vars['oneforum']['creater']; ?>
 "><?php echo $this->_tpl_vars['oneforum']['listennum']; ?>
 </a></p>听众</th>
-    <td align="center"><p><a href="javascript:void(0)"><?php echo $this->_tpl_vars['oneforum']['forumcoins']; ?>
+    <td align="center"><p><a href="javascript:void(0)"><?php echo $this->_tpl_vars['oneforum']['coins']; ?>
 </a></p>积分</td>
   </tr>
 </table>
@@ -305,7 +304,7 @@ href="forum_home.php?module=new&type=<?php echo $this->_tpl_vars['oneforum']['id
     <th><p><a href="javascript:void(0)" name = "listen<?php echo $this->_tpl_vars['oneforum']['creater']; ?>
 "><?php echo $this->_tpl_vars['oneforum']['listennum']; ?>
 </a></p>听众</th>
-    <td align="center"><p><a href="javascript:void(0)"><?php echo $this->_tpl_vars['oneforum']['forumcoins']; ?>
+    <td align="center"><p><a href="javascript:void(0)"><?php echo $this->_tpl_vars['oneforum']['coins']; ?>
 </a></p>积分</td>
   </tr>
 </table>
@@ -401,7 +400,7 @@ href="forum_home.php?module=new&type=<?php echo $this->_tpl_vars['oneforum']['id
     <th><p><a href="javascript:void(0)" name = "listen<?php echo $this->_tpl_vars['item']['creater']; ?>
 "><?php echo $this->_tpl_vars['item']['listennum']; ?>
 </a></p>听众</th>
-    <td align="center"><p><a href="javascript:void(0)"><?php echo $this->_tpl_vars['item']['forumcoins']; ?>
+    <td align="center"><p><a href="javascript:void(0)"><?php echo $this->_tpl_vars['item']['coins']; ?>
 </a></p>积分</td>
   </tr>
 </table>
@@ -480,12 +479,14 @@ href="forum_home.php?module=new&type=<?php echo $this->_tpl_vars['oneforum']['id
     <?php else: ?> href="javascript:void(0)" onclick="LoginOut();"<?php endif; ?>>回复</a></p>
     <?php if ($this->_tpl_vars['oneforum']['power'] == 1): ?>
     <?php if ($this->_tpl_vars['item']['shieldflg']): ?>
-	 <p class="ref"><a href="javascript:changesecondreply('<?php echo $this->_tpl_vars['item']['replyid']; ?>
-');void(0)" id="secondreply<?php echo $this->_tpl_vars['item']['replyid']; ?>
+	 <p class="ref"><a href="javascript:changereplyshield('<?php echo $this->_tpl_vars['item']['replyid']; ?>
+','<?php echo $this->_tpl_vars['item']['businessid']; ?>
+');void(0)" id="forumreply<?php echo $this->_tpl_vars['item']['replyid']; ?>
 ">取消屏蔽</a></p>
 	<?php else: ?>
-	  <p class="ref"><a href="javascript:changesecondreply('<?php echo $this->_tpl_vars['item']['replyid']; ?>
-');void(0)" id="secondreply<?php echo $this->_tpl_vars['item']['replyid']; ?>
+	  <p class="ref"><a href="javascript:changereplyshield('<?php echo $this->_tpl_vars['item']['replyid']; ?>
+','<?php echo $this->_tpl_vars['item']['businessid']; ?>
+');void(0)" id="forumreply<?php echo $this->_tpl_vars['item']['replyid']; ?>
 ">屏蔽</a></p>
 	<?php endif; ?>
     <?php endif; ?>
@@ -518,12 +519,12 @@ href="forum_home.php?module=new&type=<?php echo $this->_tpl_vars['oneforum']['id
 					    <?php else: ?> href="javascript:void(0)" onclick="LoginOut();"<?php endif; ?>>回复</a>&nbsp;&nbsp;
 					 <?php if ($this->_tpl_vars['oneforum']['power'] == 1): ?>
 					 <?php if ($this->_tpl_vars['item']['shieldflg']): ?>
-					 <a href="javascript:changesecondreply('<?php echo $this->_tpl_vars['item']['replyid']; ?>
-');void(0)" id="secondreply<?php echo $this->_tpl_vars['item']['replyid']; ?>
+					 <a href="javascript:changereplyshield('<?php echo $this->_tpl_vars['item']['replyid']; ?>
+',0);void(0)" id="forumreply<?php echo $this->_tpl_vars['item']['replyid']; ?>
 ">取消屏蔽</a>
 					 <?php else: ?>
-					 <a href="javascript:changesecondreply('<?php echo $this->_tpl_vars['item']['replyid']; ?>
-');void(0)" id="secondreply<?php echo $this->_tpl_vars['item']['replyid']; ?>
+					 <a href="javascript:changereplyshield('<?php echo $this->_tpl_vars['item']['replyid']; ?>
+',0);void(0)" id="forumreply<?php echo $this->_tpl_vars['item']['replyid']; ?>
 ">屏蔽</a>
 					 <?php endif; ?>
 					 <?php endif; ?>

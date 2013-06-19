@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2013-06-16 16:44:43
+<?php /* Smarty version 2.6.18, created on 2013-06-19 20:48:15
          compiled from forum_home/mypost.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "barheader.tpl", 'smarty_include_vars' => array()));
@@ -63,7 +63,7 @@ unset($_smarty_tpl_vars);
     foreach ($_from as $this->_tpl_vars['key'] => $this->_tpl_vars['item']):
 ?>
     <li style="float:none"><a href="forum_home.php?module=home&type=<?php echo $this->_tpl_vars['item']['ID']; ?>
-"><?php echo $this->_tpl_vars['item']['name']; ?>
+" <?php if ($this->_tpl_vars['type'] == $this->_tpl_vars['item']['ID']): ?> style="color:#ADFF2F" <?php endif; ?>><?php echo $this->_tpl_vars['item']['name']; ?>
 </a></li>
    <?php endforeach; endif; unset($_from); ?>
    </ul>
@@ -201,11 +201,11 @@ unset($_smarty_tpl_vars);
       <td width="7%">排序：</td>
       <td width="53%">
 	  <span class="a963"><a href="forum_home.php?module=home&type=<?php echo $this->_tpl_vars['type']; ?>
-&order=1">最新回复</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+&order=1" <?php if ($this->_tpl_vars['order'] == 1): ?> style="background-color:#98FB98" <?php endif; ?>>最新回复</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 	  <span class="af90"><a href="forum_home.php?module=home&type=<?php echo $this->_tpl_vars['type']; ?>
-&order=2">最新发表</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+&order=2" <?php if ($this->_tpl_vars['order'] == 2): ?> style="background-color:#98FB98" <?php endif; ?>>最新发表</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 	  <span class="af30"><a href="forum_home.php?module=home&type=<?php echo $this->_tpl_vars['type']; ?>
-&order=3">精华区</a></span></td>
+&order=3" <?php if ($this->_tpl_vars['order'] == 3): ?> style="background-color:#98FB98" <?php endif; ?>>精华区</a></span></td>
       <td width="13%">作者 | 时间 </td>
       <td width="14%">回复 | 点击 </td>
       <td width="13%">最后发表 </td>
@@ -431,7 +431,7 @@ unset($_smarty_tpl_vars);
     foreach ($_from as $this->_tpl_vars['key'] => $this->_tpl_vars['item']):
 ?>
 <li><img src="./uploadfiles/forum/<?php echo $this->_tpl_vars['item']['realname']; ?>
-" width="49" height="48"/><p><a href="./uploadfiles/forum/<?php echo $this->_tpl_vars['item']['realname']; ?>
+" width="49" height="48" onerror="this.src='./templates/images/schoolbar/wb1.jpg'"/><p><a href="./uploadfiles/forum/<?php echo $this->_tpl_vars['item']['realname']; ?>
 "><?php echo $this->_tpl_vars['item']['oldname']; ?>
 </a></p></li>
 <?php endforeach; endif; unset($_from); ?>

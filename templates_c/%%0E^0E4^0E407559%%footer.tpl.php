@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2013-06-02 16:37:10
+<?php /* Smarty version 2.6.18, created on 2013-06-19 14:53:02
          compiled from footer.tpl */ ?>
 <!--底部 帮助 文档-->
 <DIV class="blank"></DIV>

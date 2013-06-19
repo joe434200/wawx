@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2013-06-02 16:36:54
+<?php /* Smarty version 2.6.18, created on 2013-06-19 14:53:10
          compiled from barfooter.tpl */ ?>
 <div class="q_foot">
     <div class="box clearfix">
