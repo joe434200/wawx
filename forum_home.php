@@ -372,6 +372,7 @@ elseif($module == 'myforum')
 	$smarty->assign("lngtype",$lngtype);
 	$smarty->assign("pagecount",$totalpages);
 	$smarty->assign("type",$type);
+	$smarty->assign("order",$order);
 	$smarty->assign("createrid",$createrid);
 	$smarty->assign("firstforumtype",$firstforumtype);//板块内容
 	$smarty->assign("allforum",$allforum);//所有的帖子

@@ -8,7 +8,7 @@
    {if $firstforumtype}
     <ul>
    {foreach from=$firstforumtype item=item key=key}
-    <li><a href="forum_home.php?module=myforum&type={$item.ID}&createrid={$createrid}">{$item.name}</a></li>
+    <li><a href="forum_home.php?module=myforum&type={$item.ID}&createrid={$createrid}" {if $type eq $item.ID} style="color:#ADFF2F" {/if}>{$item.name}</a></li>
    {/foreach}
    </ul>
    {/if}
@@ -39,9 +39,9 @@
     <tr>
       <td width="7%">排序：</td>
       <td width="53%">
-	  <span class="a963"><a href="forum_home.php?module=myforum&type={$type}&order=1&createrid={$createrid}">最新回复</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-	  <span class="af90"><a href="forum_home.php?module=myforum&type={$type}&order=2&createrid={$createrid}">最新发表</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-	  <span class="af30"><a href="forum_home.php?module=myforum&type={$type}&order=3&createrid={$createrid}">精华区</a></span></td>
+	  <span class="a963"><a href="forum_home.php?module=myforum&type={$type}&order=1&createrid={$createrid}" {if $order eq 1} style="background-color:#98FB98" {/if}>最新回复</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+	  <span class="af90"><a href="forum_home.php?module=myforum&type={$type}&order=2&createrid={$createrid}" {if $order eq 2} style="background-color:#98FB98" {/if}>最新发表</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+	  <span class="af30"><a href="forum_home.php?module=myforum&type={$type}&order=3&createrid={$createrid}" {if $order eq 3} style="background-color:#98FB98" {/if}>精华区</a></span></td>
        <td width="13%"> </td>
       <td width="14%">回复 | 点击 </td>
       <td width="13%">最后发表 </td>
@@ -53,7 +53,7 @@
 
 
 <div class="forum_li clearfix">
-<ul id="forum_tab" style="height:auto!important;height:500px;min-height:500px;">
+<ul id="forum_tab" style="height:auto!important;height:300px;min-height:300px;">
 {if $allforum}
 {foreach from=$allforum item=item key=key} 
 <li>
