@@ -239,14 +239,14 @@ function checkSubmit()
 	 
  }
  
-//二级回复屏蔽操作
- var secondid;
- function changesecondreply(secondreplyid)
+//回复屏蔽操作
+ var forumreplyId;
+ function changereplyshield(replyid,forumid)
  {
-	 secondid =secondreplyid;
-	 secondfield= "secondreply"+secondid;
-	 var secondshield = document.getElementById(secondfield).innerHTML;
-	 if(secondshield == "屏蔽")
+	 forumreplyId =replyid;
+	 var replyfield= "forumreply"+forumreplyId;
+	 var replyfieldarea = document.getElementById(replyfield).innerHTML;
+	 if(replyfieldarea == "屏蔽")
 		 {
 		 shieldflg = 1;
 		 }
@@ -255,26 +255,26 @@ function checkSubmit()
 		  shieldflg = 0;
 		 }
 	 var myAjax = new Ajax.Request(
-				"forum_home.php?module=secondreplyshield&shieldflg="+shieldflg+"&secondid="+secondid,
+				"forum_home.php?module=changereplyshield&shieldflg="+shieldflg+"&forumreplyId="+forumreplyId+"&forumid="+forumid,
 	            {
 	                method: 'get',//是ajax返回时，需要执行的js  函数
-	                onComplete: changesecondreplyReponse//ajax返回时，需要执行的js  函数
+	                onComplete: changereplyshieldReponse//ajax返回时，需要执行的js  函数
 	            }
 	        );
 
  }
- function changesecondreplyReponse(response)
+ function changereplyshieldReponse(response)
  {
 
 		var res = response.responseText;
-		secondfield= "secondreply"+secondid;
+		replyfield= "forumreply"+forumreplyId;
 		if(res == "1")
 		{
-			document.getElementById(secondfield).innerHTML="取消屏蔽";
+			document.getElementById(replyfield).innerHTML="取消屏蔽";
 		}
 		else
 		{
-			document.getElementById(secondfield).innerHTML="屏蔽";
+			document.getElementById(replyfield).innerHTML="屏蔽";
 		}
 		
 	 

@@ -53,7 +53,7 @@
    {if $firstforumtype}
     <ul>
    {foreach from=$firstforumtype item=item key=key}
-    <li style="float:none"><a href="forum_home.php?module=home&type={$item.ID}">{$item.name}</a></li>
+    <li style="float:none"><a href="forum_home.php?module=home&type={$item.ID}" {if $type eq $item.ID} style="color:#ADFF2F" {/if}>{$item.name}</a></li>
    {/foreach}
    </ul>
    {/if}
@@ -171,9 +171,9 @@
     <tr>
       <td width="7%">排序：</td>
       <td width="53%">
-	  <span class="a963"><a href="forum_home.php?module=home&type={$type}&order=1">最新回复</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-	  <span class="af90"><a href="forum_home.php?module=home&type={$type}&order=2">最新发表</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-	  <span class="af30"><a href="forum_home.php?module=home&type={$type}&order=3">精华区</a></span></td>
+	  <span class="a963"><a href="forum_home.php?module=home&type={$type}&order=1" {if $order eq 1} style="background-color:#98FB98" {/if}>最新回复</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+	  <span class="af90"><a href="forum_home.php?module=home&type={$type}&order=2" {if $order eq 2} style="background-color:#98FB98" {/if}>最新发表</a></span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+	  <span class="af30"><a href="forum_home.php?module=home&type={$type}&order=3" {if $order eq 3} style="background-color:#98FB98" {/if}>精华区</a></span></td>
       <td width="13%">作者 | 时间 </td>
       <td width="14%">回复 | 点击 </td>
       <td width="13%">最后发表 </td>
@@ -361,7 +361,7 @@
 <ul>
 {if $newpic}
 {foreach from=$newpic item=item key=key}
-<li><img src="./uploadfiles/forum/{$item.realname}" width="49" height="48"/><p><a href="./uploadfiles/forum/{$item.realname}">{$item.oldname}</a></p></li>
+<li><img src="./uploadfiles/forum/{$item.realname}" width="49" height="48" onerror="this.src='./templates/images/schoolbar/wb1.jpg'"/><p><a href="./uploadfiles/forum/{$item.realname}">{$item.oldname}</a></p></li>
 {/foreach}
 {/if}
 </ul>

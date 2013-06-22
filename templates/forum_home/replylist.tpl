@@ -50,10 +50,8 @@
 	  <span class="lt_show_bt1">社区精华</span>
 	  <em>热门推荐：
 	  {if $hot}
-      {foreach from=$hot item=item key=key} 
-     {if $key ge 0 and $key lt 5}
-    <a href="forum_home.php?module=replylist&forumid={$item.ID}">{$item.title}</a>
-     {/if}
+      {foreach from=$excel item=item key=key} 
+     <a href="forum_home.php?module=replylist&forumid={$item.ID}">{$item.title}</a>
      {/foreach}
      {/if}</em>	  </div>
 	  
@@ -63,7 +61,7 @@
 	  <ul>
       {foreach from=$newpic item=item key=key}
       {if $key ge 0 and $key lt 6}
-      <li><img src="./uploadfiles/forum/{$item.realname}" width="121" height="90"/><p><a href="./uploadfiles/forum/{$item.realname}">{$item.oldname}</a></p></li>
+      <li><img src="./uploadfiles/forum/{$item.realname}" width="121" height="90" onerror="this.src='./templates/images/schoolbar/wb1.jpg'"/><p><a href="./uploadfiles/forum/{$item.realname}">{$item.oldname}</a></p></li>
       {/if}
       {/foreach}
 	  </ul>
@@ -172,7 +170,7 @@ href="forum_home.php?module=new&type={$oneforum.idm_forum_catalog}"
   <tr>
     <th><p><a href="javascript:void(0)">{$countforumtype}</a></p>主题</th>
     <th><p><a href="javascript:void(0)" name = "listen{$oneforum.creater}">{$oneforum.listennum}</a></p>听众</th>
-    <td align="center"><p><a href="javascript:void(0)">{$oneforum.forumcoins}</a></p>积分</td>
+    <td align="center"><p><a href="javascript:void(0)">{$oneforum.coins}</a></p>积分</td>
   </tr>
 </table>
     </div>
@@ -255,7 +253,7 @@ href="forum_home.php?module=new&type={$oneforum.idm_forum_catalog}"
   <tr>
     <th><p><a href="javascript:void(0)">{$countforumtype}</a></p>主题</th>
     <th><p><a href="javascript:void(0)" name = "listen{$oneforum.creater}">{$oneforum.listennum}</a></p>听众</th>
-    <td align="center"><p><a href="javascript:void(0)">{$oneforum.forumcoins}</a></p>积分</td>
+    <td align="center"><p><a href="javascript:void(0)">{$oneforum.coins}</a></p>积分</td>
   </tr>
 </table>
     </div>
@@ -333,7 +331,7 @@ href="forum_home.php?module=new&type={$oneforum.idm_forum_catalog}"
   <tr>
     <th><p><a href="javascript:void(0)">{$countforumtype}</a></p>主题</th>
     <th><p><a href="javascript:void(0)" name = "listen{$item.creater}">{$item.listennum}</a></p>听众</th>
-    <td align="center"><p><a href="javascript:void(0)">{$item.forumcoins}</a></p>积分</td>
+    <td align="center"><p><a href="javascript:void(0)">{$item.coins}</a></p>积分</td>
   </tr>
 </table>
     </div>
@@ -395,9 +393,9 @@ href="forum_home.php?module=new&type={$oneforum.idm_forum_catalog}"
     {else} href="javascript:void(0)" onclick="LoginOut();"{/if}>回复</a></p>
     {if $oneforum.power eq 1}
     {if $item.shieldflg}
-	 <p class="ref"><a href="javascript:changesecondreply('{$item.replyid}');void(0)" id="secondreply{$item.replyid}">取消屏蔽</a></p>
+	 <p class="ref"><a href="javascript:changereplyshield('{$item.replyid}','{$item.businessid}');void(0)" id="forumreply{$item.replyid}">取消屏蔽</a></p>
 	{else}
-	  <p class="ref"><a href="javascript:changesecondreply('{$item.replyid}');void(0)" id="secondreply{$item.replyid}">屏蔽</a></p>
+	  <p class="ref"><a href="javascript:changereplyshield('{$item.replyid}','{$item.businessid}');void(0)" id="forumreply{$item.replyid}">屏蔽</a></p>
 	{/if}
     {/if}
     </td>
@@ -421,9 +419,9 @@ href="forum_home.php?module=new&type={$oneforum.idm_forum_catalog}"
 					    {else} href="javascript:void(0)" onclick="LoginOut();"{/if}>回复</a>&nbsp;&nbsp;
 					 {if $oneforum.power eq 1}
 					 {if $item.shieldflg}
-					 <a href="javascript:changesecondreply('{$item.replyid}');void(0)" id="secondreply{$item.replyid}">取消屏蔽</a>
+					 <a href="javascript:changereplyshield('{$item.replyid}',0);void(0)" id="forumreply{$item.replyid}">取消屏蔽</a>
 					 {else}
-					 <a href="javascript:changesecondreply('{$item.replyid}');void(0)" id="secondreply{$item.replyid}">屏蔽</a>
+					 <a href="javascript:changereplyshield('{$item.replyid}',0);void(0)" id="forumreply{$item.replyid}">屏蔽</a>
 					 {/if}
 					 {/if}
 					 </td>

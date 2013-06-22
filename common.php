@@ -140,11 +140,7 @@ if (empty($module))//初始化
 	    {
 	    	$defaultschoolname=substr($defaultschoolname,0,12);
 	    }
-	    else 
-	    {
-	    	$defaultschoolname=$defaultschoolname;
-	    }
-  
+	  
 	$alliance =$citybsi->getalliance();
 	$friendlink=$citybsi->getFriendLink();
 	$smarty->assign("defaultschoolname",$defaultschoolname);
@@ -260,11 +256,11 @@ elseif ($module=='addschoolsession')
 	
 	$_SESSION['cityid']['schoolid']=$schoolid;
 	$schoolinfo=$citybsi->getSchoolBySchoolId($schoolid);
-	$_SESSION['cityid']['schoolcity']=$schoolinfo['idm_city2'];
+	$_SESSION['cityid']['schoolcity']=$schoolinfo['idm_city1'];
 	if($keyword=='undefined')
 	{
 		
-		$schools['schoollist']=$citybsi->getSchools($schoolinfo['idm_city2']);
+		$schools['schoollist']=$citybsi->getSchools($schoolinfo['idm_city1']);
 	}
 	else 
 	{
