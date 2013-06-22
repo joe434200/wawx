@@ -190,7 +190,7 @@ else if($module == "AjaxConfirmOrder")//确认收货
 {
 	echo "queren";
 }
-else if($module == "AjaxGetAddr")
+else if($module == "AjaxGetAddr")//ajax动态更新城市列表
 {
 	$level = $_POST['level'];
 	$parentid = $_POST['parentid'];

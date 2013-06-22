@@ -252,9 +252,17 @@ else if($module == "Reg_Fail_Show")//注册失败，显示页面
 {
 	$smarty->display ( 'register/zhuce_email_failed.tpl');
 }
-else if($module == "")
+else if($module == "check_verycode")//Ajax验证码比对
 {
-
+	$vercode = $_GET['verycode'];
+	if (!(empty($vercode) || $vercode == null) && strtoupper($vercode) != strtoupper($_SESSION['VerifyCode']))
+	{
+		echo "0";
+	}
+	else
+	{
+		echo "1";
+	}
 }
 else if($module == "")
 {

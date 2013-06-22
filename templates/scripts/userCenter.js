@@ -1000,6 +1000,8 @@ function getProvince()//动态获取省份
 function getCity(obj)//动态获取城市
 {
 	var level = "2";
+	//alert(obj.value);
+	document.getElementById("city_sel").value=level;
 	var parentid = obj.value;
 	var url = "UserCenterHandler.php?module=AjaxGetAddr";
 	var newAjax = new Ajax.Request(
@@ -1007,15 +1009,16 @@ function getCity(obj)//动态获取城市
 			{
 				method:'post',
 				parameters:"level="+level+"&parentid="+parentid,
-				onComplete:""
+				onComplete:generateCitySel
 				
 			}
 		);
 }
-function getDistrct(obj)//动态获取区
+function getDistrct(obj)//动态获取地区
 {
 	alert(obj.value);
 	var level = "3";
+	document.getElementById("city_sel").value=level;
 	var parentid = obj.value;
 	var url = "UserCenterHandler.php?module=AjaxGetAddr";
 	var newAjax = new Ajax.Request(
@@ -1023,20 +1026,56 @@ function getDistrct(obj)//动态获取区
 			{
 				method:'post',
 				parameters:"level="+level+"&parentid="+parentid,
-				onComplete:""
+				onComplete:generateCitySel
 				
 			}
 		);
 }
-function generateCitySel(obj)
+function generateCitySel(json)//动态获取地区
 {
-	var content;
+	//alert(json.responseText);
+	var content = "";
+	var sel = "city"+document.getElementById("city_sel").value;
 	var obj = eval("("+json.responseText+")");
 	for(var i=0; i<obj.length; i++)
 	{
 		content += "<option value='"+obj[i].ID+"'>"+obj[i].name+"</option>";
 	}
+	$jq("#"+sel).html(content);
 }
+
+function addressCheckSubmit()//收货地址提交
+{
+	$jq("#tips").html("");
+	if($jq("#consignee").val().length < 1)//收货人
+	{
+		$jq("#tips").html("收货人姓名不正确");
+		return false;
+	}
+	else if($jq("#useremail").val().length < 1)
+	{
+		$jq("#tips").html("邮箱不正确");
+		return false;
+	}
+	else if($jq("#address").val().length < 1)
+	{
+		$jq("#tips").html("详细地址不正确");
+		return false;
+	}
+	else if($jq("#mobile").val().length < 1)
+	{
+		$jq("#tips").html("手机不正确");
+		return false;
+	}
+	else if($jq("#tel").val().length < 1)
+	{
+		$jq("#tips").html("固定电话不正确");
+		return false;
+	}
+	else
+	{}
+}
+
 
 
 

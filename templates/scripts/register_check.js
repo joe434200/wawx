@@ -5,7 +5,7 @@
 // #FF3300 红色  #4CB849 绿色
 var red = "#FF3300";
 var green = "#4CB849";
-var code;
+var code = false;
 var ck_email = false;
 
 //验证邮箱
@@ -217,18 +217,36 @@ function check_vali_repwd(obj)
 //验证码检查
 function check_vali_code()
 {
+	
 	var ck_code = document.getElementById("code");
-	if(ck_code.value == code)
+	var url = "register.php?module=check_verycode";
+	var newAjax = new Ajax.Request(
+			url,
+			{
+				parameters:"verycode="+ck_code.value,
+				method:'get',
+				onComplete:check_vali_code_back
+			 }
+		);
+	
+}
+function check_vali_code_back(json)
+{
+	var ck_code = document.getElementById("code");
+	//alert(json.responseText);
+	if(json.responseText == "1")
 	{
 		setEnterEorrer(ck_code,true,"green","");
+		code = true;
 		return true;
 	}
-	else
-	{
-		setEnterEorrer(ck_code,true,"red","验证码输入有误");
-		return false;
-	}
+	setEnterEorrer(ck_code,true,"red","验证码输入有误");
+	code = false;
+	return false;
 }
+
+
+
 
 //验证上传文件------------------------
 function check_vali_file()
@@ -420,6 +438,7 @@ function check_submit(value)
 
 
 //---------------------------------生成验证码---------------------------------
+/*
 function createCode()  
 {   
   code = "";  
@@ -428,13 +447,9 @@ function createCode()
   var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');//所有候选组成验证码的字符，当然也可以用中文的  
      
   for(var i=0;i<codeLength;i++)  
-  {  
-   
-     
-  var charIndex = Math.floor(Math.random()*36);  
-  code +=selectChar[charIndex];  
-    
-    
+  {       
+	  var charIndex = Math.floor(Math.random()*36);  
+	  code +=selectChar[charIndex];      
   }  
   //alert(code);  
   if(checkCode)  
@@ -444,6 +459,7 @@ function createCode()
   }  
     
 }
+*/
 
 var time = 5;
 //注册成功，自动跳转

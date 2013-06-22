@@ -8,7 +8,7 @@
 	type="text/css" />
 </head>
 
-<body onload="createCode()">
+<body>
 
 <div class="clearfix">
 {literal}

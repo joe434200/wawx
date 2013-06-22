@@ -1,7 +1,7 @@
 {include file=userheader.tpl}
 
 
-
+<input type="hidden" value="" id="city_sel"/>
 <div class="my_right clearfix">
    <div class="my_address clearfix">
       <h3>常用收货地址</h3>
@@ -53,50 +53,53 @@
 	<select onchange="javascript:getCity(this);">
 	{foreach from=$data item=item key=key}
       <option value="{$item.ID}">{$item.name}</option>
-      {/foreach}    
+      {/foreach}
     </select>
 	
-	<select name="" onchange="javascript:getDistrct(this)">
+	<select name="" id="city2" onchange="javascript:getDistrct(this)">
       <option value="0">请选择</option>
     </select>
-	<select name="">
+	<select name="" id="city3">
       <option value="0">请选择</option>
     </select>
 	(必填)	</td>
     </tr>
   <tr>
     <td align="right">收货人姓名：</td>
-    <td width="36%"><input type="text" name="addr[consignee]"  class="my_txt_200"/> (必填)</td>
+    <td width="36%"><input type="text" name="addr[consignee]" id="consignee" class="my_txt_200"/> (必填)</td>
     <td width="14%" align="right">电子邮箱地址：</td>
-    <td width="36%"><input type="text" name="addr[email]"  class="my_txt_200"/>
+    <td width="36%"><input type="text" name="addr[email]" id="useremail" class="my_txt_200"/>
       (必填)</td>
   </tr>
   <tr>
     <td align="right">详细地址：</td>
-    <td><input type="text" name="addr[address]"  class="my_txt_200"/>
+    <td><input type="text" name="addr[address]" id="address" class="my_txt_200"/>
       (必填)</td>
-    <td align="right">邮政编码：</td>
-    <td><input type="text" name="addr[zipcode]"  class="my_txt_200"/></td>
+    <td align="right">有效手机：</td>
+    <td><input type="text" name="addr[mobile]" id="mobile" class="my_txt_200"/>
+      (必填)</td>
   </tr>
   <tr>
-    <td align="right">电话：</td>
-    <td><input type="text" name="addr[tel]"  class="my_txt_200"/>
+    <td align="right">固定电话：</td>
+    <td><input type="text" name="addr[tel]" id="tel"  class="my_txt_200"/>
       (必填)</td>
-    <td align="right">手机：</td>
-    <td><input type="text" name="addr[mobile]"  class="my_txt_200"/></td>
+      <td align="right">邮政编码：</td>
+    <td><input type="text" name="addr[zipcode]" id="zipcode" class="my_txt_200"/></td>
+    
   </tr>
   <tr>
     <td align="right">标志建筑：</td>
-    <td><input type="text" name="addr[signbuilding]"  class="my_txt_200"/></td>
+    <td><input type="text" name="addr[signbuilding]" id="signbuilding" class="my_txt_200"/></td>
     <td align="right">最佳送货时间：</td>
-    <td><input type="text" name="addr[besttime]"  class="my_txt_200"/></td>
+    <td><input type="text" name="addr[besttime]" id="besttime" class="my_txt_200"/></td>
   </tr>
   <tr>
     <td colspan="4" align="center">
-    <input type="submit" name="Submit" value="确认" class="anniu24" />
+    <input type="button" name="button" value="确认" class="anniu24" onclick="javascript:addressCheckSubmit()"/>
     </td>
     </tr>
 </table>
+<span id="tips" style="color:red;"></span>
 </form>
 	  </div>
 	  

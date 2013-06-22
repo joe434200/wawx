@@ -1,5 +1,5 @@
 {include file=regheader.tpl}
-
+<script src="./templates/scripts/backstage/login.js" type="text/javascript"></script>
 <div class="blank20"></div>
 <div class="box4">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -81,7 +81,7 @@
 	<tr>
 		<td align="right"><span class="cl_f30">*</span> 校验码：</td>
 		<td><input type="text" name="user[checkCode]" id="code" class="my_txt_120" onblur="check_vali_code()" onfocus="javascript:setEnterEorrer(this,false,'','');"/>
-		<span><input type="text" readonly="readonly" id="checkCode" class="unchanged" style="width: 80px"  /></span><br />
+		<img src="GenerateYZ.php" width="143" height="25" id="yzimg" alt="CAPTCHA" border="1" onclick= "javascript:refreshYZ(this);" style="cursor: pointer;" title="看不清?点击更换另一个验证码." /><br />
 		<span id="tips_code_ck"></span><br/><p id="tips_code"/>
 		</td>
 		<td>&nbsp;</td>
