@@ -16,6 +16,7 @@
 <script src="./templates/pagesplit/page.js" type="text/javascript"></script>
 <script src="./templates/scripts/schoolbar/roll.js" type="text/javascript"></script>
 <script src="./templates/scripts/login.js" type="text/javascript"></script>
+<script  src="./templates/scripts/bigsearch.js" type="text/javascript"></script>
 
 </head>
 
@@ -110,8 +111,8 @@
 	   </ul>
 	   
 	   <div class="home_sear">
-	    <div class="lt_input lt_top_txt"><input name="" type="text" /></div>
-		<div class="lt_input"><input type="button"  class="lt_top_ann" value=" "/></div>
+	    <div class="lt_input lt_top_txt"><input name="" type="text" id="searcharea"/></div>
+		<div class="lt_input"><input type="button"  class="lt_top_ann" value=" " onclick="javascript:checksearch()"/></div>
 	  </div>
 	  
 	  </div>
