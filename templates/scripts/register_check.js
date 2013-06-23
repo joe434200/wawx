@@ -388,8 +388,8 @@ function check_submit(value)
 		//获取共同check对象，验证共同部分
 		var tips2 = document.getElementById("pwd");
 		var tips3 = document.getElementById("repwd");
-		
-		if( ck_email && check_vali_pwd(tips2) && check_vali_repwd(tips3) && check_vali_code())//全部验证通过
+		//alert(code);
+		if( ck_email && check_vali_pwd(tips2) && check_vali_repwd(tips3) && code)//全部验证通过
 		{
 			
 			if(parseInt(value) == 1)
@@ -408,6 +408,7 @@ function check_submit(value)
 				}
 				else
 				{
+					//alert("123");
 					set_tips(tips,"请完善注册资料",red,true);
 					
 				}

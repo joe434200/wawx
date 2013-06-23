@@ -6,6 +6,16 @@ require_once 'SendMailFunction.php';
 require_once ('MessageUtil.php');
 
 
+//如果用户session过期，则跳转到登录页面
+/*
+if(empty($_SESSION['baseinfo']['ID']))
+{
+	echo "<script language='javascript'>";
+	echo "location='login.php';";
+	echo "</script>";
+}
+*/
+
 class WbBusiness extends SelfBuiness
 {
     function __construct()

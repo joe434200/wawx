@@ -5,11 +5,11 @@ require_once ('LoginBusiness.php');
 require_once ('SessionUtil.php');
 require_once ('ConstUtil.php');
 require_once ('RegisterBusiness.php');
-require_once ('SelfBusiness.php');
+//require_once ('SelfBusiness.php');
 
 $regbusi = new RegisterBusiness ();
 $currdate = date("Y-m-d H:i:s");
-$selfbusi = new SelfBuiness();
+//$selfbusi = new SelfBuiness();
 
 if ($_REQUEST ['module'] == "init" || $_REQUEST ['module'] == "") //初始化注册首页
 {
@@ -133,24 +133,24 @@ elseif ($_REQUEST['module'] == "success") //邮件激活成功
     //此段代码要转移到 用户注册的时候执行
     {
         //创建个人默认相册
-        $rs = $selfbusi->Search("t_space_album", "m.*","","m.introduction='default' AND m.creater='$userid'");
+        $rs = $regbusi->Search("t_space_album", "m.*","","m.introduction='default' AND m.creater='$userid'");
         if(count($rs) < 1 )
         {
             $sata['albumname'] = "默认相册";
             $sata['introduction'] = "default";
             $sata['createtime'] = $currdate;
             $sata['creater'] = $userid;
-            $albid = $selfbusi->self_insert('t_space_album', $sata);
+            $albid = $regbusi->reg_insert('t_space_album', $sata);
         }
         
         //创建个人日志分类
-        $rs = $selfbusi->Search("t_space_diary_catalog", "m.*","","m.name='默认分类' AND m.idt_user='$userid'");
+        $rs = $regbusi->Search("t_space_diary_catalog", "m.*","","m.name='默认分类' AND m.idt_user='$userid'");
         if(count($rs) < 1 )
         {
             $cata['name'] = "默认分类";
             $cata['idt_user'] = $userid;
             $cata['sum'] = "0";
-            $selfbusi->self_insert('t_space_diary_catalog', $cata);
+            $regbusi->reg_insert('t_space_diary_catalog', $cata);
         }
         
         //创建个人空间
@@ -158,7 +158,7 @@ elseif ($_REQUEST['module'] == "success") //邮件激活成功
         $space['creator'] = $userid;
         $space['idt_user'] = $userid;
         $space['createtime'] = $currdate;
-        $selfbusi->self_insert('t_space', $space);
+        $regbusi->reg_insert('t_space', $space);
         
     }
     

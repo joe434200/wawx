@@ -5,6 +5,7 @@ require_once ('SupportException.php');
 require_once 'SendMailFunction.php';
 require_once ('MessageUtil.php');
 
+
 //如果用户session过期，则跳转到登录页面
 if(empty($_SESSION['baseinfo']['ID']))
 {
@@ -12,6 +13,7 @@ if(empty($_SESSION['baseinfo']['ID']))
 	echo "location='login.php';";
 	echo "</script>";
 }
+
 
 class SelfBuiness extends BaseBusiness
 {
