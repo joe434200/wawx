@@ -1,0 +1,203 @@
+{include file=pageheader.htm}
+
+{literal}
+<script src="./templates/scripts/backstage/order_list.js" type="text/javascript"></script>
+<script type="text/javascript" src="./plugin/date2/jquery-1.5.1.js"></script>
+    <link href="./plugin/date2/lyz.calendar.css" rel="stylesheet" type="text/css" />
+    <script src="./plugin/date2/lyz.calendar.min.js" type="text/javascript"></script>
+    <style>
+        body
+        {
+            font-size: 12px;
+            font-family: "微软雅黑" , "宋体" , "Arial Narrow";
+        }
+    </style>
+    <script>
+        $(function () {
+        	/*
+            $("#starttime").calendar({
+                controlId: "divDate",                                       // 弹出的日期控件ID，默认: $(this).attr("id") + "Calendar"
+                speed: 200,                                                 // 三种预定速度之一的字符串("slow", "normal", or "fast")或表示动画时长的毫秒数值(如：1000),默认：200
+                complement: true,                                           // 是否显示日期或年空白处的前后月的补充,默认：true
+                readonly: true,                                             // 目标对象是否设为只读，默认：true
+                upperLimit: new Date(),                                     // 日期上限，默认：NaN(不限制)
+                lowerLimit: new Date("2011/01/01")                       // 日期下限，默认：NaN(不限制)
+               
+            });
+        	*/
+
+            $("#confirmtime").calendar();
+        });
+    </script>
+{/literal}
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>订单号码</th> 
+    <th>客户名称</th>
+    <th>款项状态</th>
+    <th>订单总金额</th>
+    <th>下单时间</th>
+    <th>折扣额</th>
+    <th>查看订单明细</th>
+    <th>操作</th>
+
+  </tr>
+  
+  {if $infor|@count eq 0}d
+      <tr><td class="no-records" colspan="10">您还没有添加订单</td></tr>
+  {else}
+ {foreach from=$infor item=item key=key}
+  <tr>
+    <td align="center">{$item.ordersn}</td>
+    <td  align="center">{$item.username}</td><!-- 需要改一下名字 -->
+    <td  align="center">{$item.paystatus}</td>
+     <td align="center">{$item.orderamount}</td>
+    <td  align="center">{$item.addtime}</td>
+    <td  align="center">{$item.discount}</td>
+    <td align="center" ><a href="order.php?act=query&id={$item.ID}" >查看订单明细</a></td>
+   
+    <td align="center">
+      <a href="javascript:confirm_redirect
+      ('您确定要删除该模块吗？', 'order.php?act=del&id={$item.ID}')" title="删除">
+      <img src="./templates/images/backstage/icon_drop.gif" border="0" height="16" width="16" /></a>
+     </td>
+   
+  </tr>
+  
+  {/foreach}
+  {/if}
+   <tr>
+    <td align="right"  colspan="10">      
+     
+ <!-- 分页控件开始-->    
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg1 = new showPages('pg1');
+	pg1.pageCount = '{$pagecount}';
+	pg1.argName = 'p';
+	pg1.printHtml();
+</script>
+</DIV>
+</div>
+ <!-- 分页控件结束-->       
+      
+</td>
+  </tr>
+  </table>
+  </div>
+  
+  
+<div class="list-div" id="listDiv" >
+<form  action="order.php?act=save" method="post" name="orderdetail"  id="orderdetail">
+<table cellpadding="3" cellspacing="1"  >
+<tr> 
+<td align="center">商品名称</td>
+<td align="center">配送状态</td>
+<td align="center">订单状态</td>
+<td align="center">确认时间</td> 
+<td align="center">商品数量</td>
+<td align="center">总价【单种商品】</td>
+<td align="center">更改后价格</td>
+<td align="center">验证码</td>
+<td align="center">验证码状态</td>
+<td align="center">是否使用</td> 
+
+</tr>
+
+{if $order|@count eq 0}
+<tr><td class="no-records" colspan="10">您还没有查看明细订单操作</td></tr>
+{else}
+{foreach from=$order item=item key=key}
+
+<tr>
+
+<td align="center">{$item.goodsname}</td>
+<td align="center">
+ <input name="shippingstatus[{$item.ID}]" type="radio" value='0'{if $item neq "" && $item.shippingstatus eq "0"}checked {elseif $order eq ""}checked{else}{/if}/>未发货  
+ <input name="shippingstatus[{$item.ID}]" type="radio" value='1'{if $item neq "" && $item.shippingstatus eq "1"}checked {/if}/>已发货  
+ <input name="shippingstatus[{$item.ID}]" type="radio" value='2'{if $item neq "" && $item.shippingstatus eq "2"}checked {/if} />确认收货  
+ <input name="shippingstatus[{$item.ID}]" type="radio" value='3'{if $item neq "" && $item.shippingstatus eq "3"}checked {/if}/>备货中
+ <input name="shippingstatus[{$item.ID}]" type="radio" value='4'{if $item neq "" && $item.shippingstatus eq "4"}checked {/if}/>已发货(部分商品)
+</td>
+<td align="center">
+ <input name="orderstatus[{$item.ID}]" type="radio" id="orderstatus"  value='0' {if $item neq "" && $item.orderstatus eq "0"}checked{elseif $item eq ""}checked{else}{/if} />未确认
+ <input name="orderstatus[{$item.ID}]" type="radio" id="orderstatus"  value='1' {if $item neq "" && $item.orderstatus eq "1"}checked{/if} onclick="javascript:timeSUBMIT()"/>已确认
+ <input name="orderstatus[{$item.ID}]" type="radio" id="orderstatus"  value='2' {if $item neq "" && $item.orderstatus eq "2"}checked{/if}/>已完成
+ <input name="orderstatus[{$item.ID}]" type="radio" id="orderstatus"  value='3' {if $item neq "" && $item.orderstatus eq "3"}checked{/if}/>取消
+</td>
+<td align="center">{$item.confirmtime}</td>
+<td align="center">{$item.shopnum}</td>
+<td align="center"><input name="agosum[{$item.ID}]" type="hidden" value="{$item.singlsum}"/>{$item.singlsum}元</td>
+<td align="center"><input name="singlsum[{$item.ID}]"id="singlsum[{$item.ID}]"type="text" value="{$item.singlsum}"/>元</td>
+<td align="center">{$item.verifycode}</td>
+<td align="center">{$item.isvalid}</td>
+<td align="center">{$item.isuse}</td>
+<td><input type="hidden" name="detailid[{$item.ID}]" value="{$item.ID}"/></td>
+<td><input type="hidden" name="orderid" value="{$item.idt_order_info}"/></td>
+<td><input type="hidden" name="confirmtime[{$item.ID}]" id="confirmtime" size="20" value=" "/>
+</td>
+
+</tr>
+
+{/foreach}
+{/if}
+
+<tr>
+<td align="right"  colspan="10">      
+     
+ <!-- 分页控件开始-->    
+<div class="num">
+<DIV class="num_pg">
+
+<script type="text/javascript">
+    var pg2 = new showPages('pg2');
+	pg2.pageCount = '{$pagecount}';
+	pg2.argName = 'g';
+	pg2.printHtml();
+</script>
+</DIV>
+</div>
+<!-- 分页控件结束-->       
+</td>
+</tr>
+
+</table>
+<table>
+<tr >
+<td align="center"><input type="submit" value="确认"  id="saveinfo" />
+<input type="button" value="打印发货单"  id="saveinfo" onclick="window.location='order.php?act=delivery_list&id={$item.idt_order_info}'"/>
+</td>
+</tr>
+</table>
+
+
+</form>
+</div>
+{literal}<!-- 让订单确认时间变成的是本机的时间 -->>
+<script>
+function timeSUBMIT()
+{
+var myDate = new Date();
+var time=myDate.toLocaleString();
+alert(time);
+document.getElementById('confirmtime').value=time;
+
+
+	
+}
+
+
+</script>
+{/literal}
+
+     
+   
+
+
+{include file=pagefooter.htm}
+
+
