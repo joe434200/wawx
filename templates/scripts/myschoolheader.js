@@ -239,7 +239,7 @@ function changethirdcityReponse(json)
 
 function changeschools(id)
 {
-	//alert("changeschools");
+
 	var url="common.php?module=changeschool";
 	  var newAjax = new Ajax.Request(
 				url,

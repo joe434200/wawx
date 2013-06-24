@@ -352,12 +352,19 @@ function checkSubmit()
  function listenReponse(response)
  {
 	 res = response.responseText;
-	 field = "listen"+listenuserid;
-	 var fieldobj = document.getElementsByName(field);
-	
-	 for(var i = 0;i<fieldobj.length;i++)
+	 if(res=='already')
 		 {
-		  fieldobj[i].innerHTML = res;
+		 alert("你已经收听过此人了哟");
+		 }
+	 else
+		 {
+		 field = "listen"+listenuserid;
+		 var fieldobj = document.getElementsByName(field);
+		
+		 for(var i = 0;i<fieldobj.length;i++)
+			 {
+			  fieldobj[i].innerHTML = res;
+		 }
 		 }
 	 
  }
