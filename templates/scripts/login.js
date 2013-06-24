@@ -83,7 +83,7 @@ function checkloginmessage(response)
 
 function LoginOut()
 {
-	 window.location.hash = "#content";
+	// window.location.hash = "#content";
 	var myAlert = document.getElementById("alert");
 	var reg = document.getElementById("content");  
 	var mClose = document.getElementById("close");   
@@ -102,10 +102,10 @@ function LoginOut()
 	if(reg.onclick)
 	{
 		//alert("aaaaaaaa");
-		myAlert.style.display = "block";  
+		
 		myAlert.style.position = "absolute";  
-		myAlert.style.top = "40%";  
-		myAlert.style.left = "50%";  
+		myAlert.style.top = document.body.scrollTop+document.documentElement.scrollTop+(document.documentElement.clientHeight-myAlert.offsetHeight)/2+"px"; 
+		myAlert.style.left =document.body.scrollLeft+document.documentElement.scrollLeft+(document.documentElement.clientWidth-myAlert.offsetWidth)/2+"px";
 		myAlert.style.marginTop = "-75px";  
 		myAlert.style.marginLeft = "-150px";  
 		  
@@ -114,14 +114,15 @@ function LoginOut()
 		mybg.style.background = "#000";  
 		mybg.style.width = "100%";  
 		mybg.style.height = "100%";  
-		mybg.style.position = "absolute";  
+		mybg.style.position = "fixed";  
 		mybg.style.top = "0";  
 		mybg.style.left = "0";  
 		mybg.style.zIndex = "500";  
 		mybg.style.opacity = "0.6";  
 		mybg.style.filter = "Alpha(opacity=60)";  
 		document.body.appendChild(mybg);  
-		document.body.style.overflow = "auto";  
+		document.body.style.overflow = "auto"; 
+		myAlert.style.display = "block";  
 	}
 	mClose.onclick = function()  
 	{  
