@@ -464,7 +464,7 @@ function checkSubmit()
  		}
  	else if(res==0)
  		{
- 		 $('forumlogin').submit();
+ 		 window.location.reload();
  		}
  }
  
@@ -502,8 +502,8 @@ function checkSubmit()
  	document.getElementById("messagetitle").value="";
  	document.getElementById("messagecontent").value="";
  		mymessage.style.position = "absolute";  
- 		toplength=window.screen.availHeight/2+document.documentElement.scrollTop;
- 		leftlength=window.screen.availWidth/2+document.documentElement.scrollLeft; 
+ 		toplength=document.body.scrollTop+document.documentElement.scrollTop+(document.documentElement.clientHeight-mymessage.offsetHeight)/2;
+ 		leftlength=document.body.scrollLeft+document.documentElement.scrollLeft+(document.documentElement.clientWidth-mymessage.offsetWidth)/2; 
  		mymessage.style.top =toplength+"px";
  		mymessage.style.left =leftlength+"px";
  		mymessage.style.marginTop = "-75px";  
