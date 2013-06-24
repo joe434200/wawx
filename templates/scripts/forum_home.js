@@ -505,6 +505,20 @@ function checkSubmit()
  		mymessage.style.left =leftlength+"px";
  		mymessage.style.marginTop = "-75px";  
  		mymessage.style.marginLeft = "-150px";  
+ 		
+ 		mymessagebg = document.createElement("div");   
+		mymessagebg.setAttribute("id","mymessagebg");   
+		mymessagebg.style.background = "#000";  
+		mymessagebg.style.width = "100%";  
+		mymessagebg.style.height = "100%";  
+		mymessagebg.style.position = "fixed";  
+		mymessagebg.style.top = "0";  
+		mymessagebg.style.left = "0";  
+		mymessagebg.style.zIndex = "500";  
+		mymessagebg.style.opacity = "0.6";  
+		mymessagebg.style.filter = "Alpha(opacity=60)";  
+		document.body.appendChild(mymessagebg);  
+		document.body.style.overflow = "auto"; 
  		mymessage.style.display = "block";  
  		
  		
@@ -512,6 +526,7 @@ function checkSubmit()
  	mClose.onclick = function()  
  	{  
  		mymessage.style.display = "none";
+ 		mymessagebg.style.display = "none";  
  	
  	} ; 
  }
