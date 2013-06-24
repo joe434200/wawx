@@ -34,10 +34,8 @@ if ($module=='init')//初始化
 	{
 		foreach ($searchdata as &$value)
 		{
-			if(strlen($value['content'])>80)
-			{
+	
 				$value['content']=utf8Substr($value['content'],0,80);
-			}
 		}
 	}
 	$totalpages = $bigsearchbus->getTotalPage();//总共分多少页

@@ -615,12 +615,16 @@ class forum_homeBusiness extends PageSplitBusiness
 	 *查询收听者的数量
 	 *@param string $id:用户的ID
 	 */
-	function searchlistencount($id)
+	function searchlistencount($id,$idt_user)
 	{
 		$sql=" SELECT COUNT(1)
                 FROM `t_forum_listen`
                 WHERE friendid ='$id'
                 ";
+		if(!empty($idt_user))
+		{
+			$sql.=" AND idt_user ='$idt_user'";
+		}
 		$rs = $this->db->exceuteQuery($sql);
 		return $rs[0][0];
 	}

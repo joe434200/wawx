@@ -483,8 +483,18 @@ elseif ($module=='listen')
 	$listen['friendid'] = $_REQUEST['userid'];
 	$listen['idt_user'] = $_SESSION['baseinfo']['ID'];
 	$listen['createtime'] =date("Y-m-d H:i:s");
-	$forumbusi->Insert('t_forum_listen', $listen);
-	$response = $forumbusi->searchlistencount($listen['friendid']);
+	$islisten = $forumbusi->searchlistencount($listen['friendid'],$listen['idt_user']);
+	if($islisten)
+	{
+		$response="already";
+	
+	}
+	else 
+	{
+		$forumbusi->Insert('t_forum_listen', $listen);
+		$response = $forumbusi->searchlistencount($listen['friendid']);
+	}
+	
 	echo $response;
 }
 
