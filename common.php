@@ -257,17 +257,15 @@ elseif ($module=='addschoolsession')
 	$_SESSION['cityid']['schoolid']=$schoolid;
 	$schoolinfo=$citybsi->getSchoolBySchoolId($schoolid);
 	$_SESSION['cityid']['schoolcity']=$schoolinfo['idm_city1'];
-	if($keyword=='undefined')
+	if($keyword)
 	{
-		
-		$schools['schoollist']=$citybsi->getSchools($schoolinfo['idm_city1']);
-	}
-	else 
-	{
-		//$response="1234";
 		$keyword=js_unescape($keyword);
 		$schools['schoollist']=$citybsi->getSchoolsByName($keyword);
 		
+	}
+	else 
+	{
+		$schools['schoollist']=$citybsi->getSchools($schoolinfo['idm_city1']);
 	}
 	$schools['baseinfo']['schoolid']=$schoolid;
 	$response = json_encode($schools);

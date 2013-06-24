@@ -1,5 +1,4 @@
 //修改省
-//var firstcityname;
 function changefirstcity(id,name)
 {  
 	document.getElementById("firstcity").innerHTML=name;
@@ -291,6 +290,10 @@ function changeschoolReponse(json)
 
 function addschool(id,key)
 {
+	if(key==undefined)
+		{
+		key=0;
+		}
 	var url="common.php?module=addschoolsession";
 	  var newAjax = new Ajax.Request(
 				url,
