@@ -421,9 +421,6 @@ function checkSubmit()
 	{
 		rememberstatus="notselect";
 	}
- //	alert(password2);
-// 	email2 = email2.replace(/账号/,"");
-// 	password2 =  password2.replace(/密码/,"");
  	if(!email2)
  		{
  		 document.getElementById("checkloginid").innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;*请输入邮箱";
